@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   //baseURL: 'http://localhost:5000',
-  baseURL: 'hawkeye-api.pamsar.com',
+  baseURL: 'https://hawkeye-api.pamsar.com',
   env_var_tp_saved: 0,
   env_var_tp_reach: 0
 };
