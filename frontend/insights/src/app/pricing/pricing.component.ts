@@ -26,8 +26,8 @@ export class PricingComponent implements OnInit {
     if(localStorage.getItem('email')){
       console.log("freelancer checkout button working fine");
       this.checkout.checkout_service(data).subscribe((res)=>{
-        console.log("checkout response",res);
-        window.location.href =<any>[Object.entries(res)[42][1]];
+        console.log("checkout response",Object.entries(res));
+        window.location.href =<any>[Object.entries(res)[44][1]];
       });
     }
   }
