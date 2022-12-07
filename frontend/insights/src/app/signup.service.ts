@@ -24,7 +24,9 @@ export class SignupService {
     else if(req.confirm_password==="")
     this.toast.error({detail:"Failure Message",summary:"Confirm Password cannot be empty",duration:5000});
     else if(req.password!==req.confirm_password)
-    this.toast.error({detail:"Failure Message",summary:"Password and confirm password does'nt match",duration:5000});
+    {
+      this.toast.error({detail:"Failure Message",summary:"Password and confirm password does'nt match",duration:5000});
+    }
     else if(req.password.length<6)
     this.toast.error({detail:"Failure Message",summary:"Password must be atleast 6 characters long",duration:5000});
     else if(req.password.length>8)
