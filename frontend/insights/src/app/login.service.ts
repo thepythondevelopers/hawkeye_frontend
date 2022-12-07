@@ -19,7 +19,7 @@ export class LoginService {
         this.router.navigate(['/pricing']);
       }
       else{
-        console.log(res);
+        this.toast.error({detail:"Failure Message",summary:res.msg,duration:5000});
       }
     },(error: any) => {
       console.log(error);
