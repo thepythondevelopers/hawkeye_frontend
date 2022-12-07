@@ -3,15 +3,14 @@ import { Router } from '@angular/router';
 import { ProfileImageService } from '../profile-image.service';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css','../dashboard/dashboard.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class NavbarComponent implements OnInit {
-  toDisplay_dropdown_beside_profile=false;
+export class ProfileComponent implements OnInit {
   profile_image: any;
   base64String:any;
-  constructor(private router: Router,private pis: ProfileImageService) { 
+  constructor(private router: Router,private pis: ProfileImageService) {
     this.pis.get_profile_image().subscribe((res)=>{
       console.log("response form set profile image=",Object.entries(res))
       if(Object.entries(res)[0][0]==="updated_profile_image"){
@@ -25,18 +24,11 @@ export class NavbarComponent implements OnInit {
       this.base64String=Object.entries(res)[0][1];
       }
     })
-  }
+   }
 
   ngOnInit(): void {
   }
-  dropdown_beside_profile(){
-    this.toDisplay_dropdown_beside_profile=!this.toDisplay_dropdown_beside_profile;
-  }
-  logout(){
-    localStorage.clear();
-    this.router.navigate(['/signup']);
-  }
-  profile(){
-    this.router.navigate(['/profile']);
+  editprofile(data:any){
+
   }
 }

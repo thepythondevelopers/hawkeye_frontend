@@ -31,6 +31,7 @@ import {NgxStripeModule} from 'ngx-stripe';
 import { SuccessComponent } from './success/success.component';
 import { CancelComponent } from './cancel/cancel.component';
 import { NgToastModule } from 'ng-angular-popup';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { NgToastModule } from 'ng-angular-popup';
     SidebarComponent,
     NavbarComponent,
     SuccessComponent,
-    CancelComponent
+    CancelComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

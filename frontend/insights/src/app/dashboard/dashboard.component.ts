@@ -327,9 +327,9 @@ export class DashboardComponent implements OnInit{
       this.router.navigate(['/signup']);
     }
     else{
-      if(!localStorage.getItem("auth_token")){
+      /*if(!localStorage.getItem("auth_token")){
         this.router.navigate(['/login-with-facebook']);
-      }
+      }*/
     }
     this.access_token=localStorage.getItem("access_token");
     this.ig_id=localStorage.getItem("ig_id");

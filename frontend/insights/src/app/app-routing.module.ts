@@ -20,10 +20,12 @@ import { SignupComponent } from './signup/signup.component';
 import { SuccessComponent } from './success/success.component';
 import { TestComponent } from './test/test.component';
 import { WebsiteClicksInsightsComponent } from './website-clicks-insights/website-clicks-insights.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {path : 'dashboard', component : DashboardComponent},
   {path : 'followers-details/:id', component : FollowerDetailsInsightsComponent},
+  {path : 'profile', component : ProfileComponent},
   {path : 'charts', component : TestComponent},
   {path : 'payment/success', component : SuccessComponent},
   {path : 'payment/cancel', component : CancelComponent},

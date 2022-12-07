@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { LoginService } from '../login.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { LoginService } from '../login.service';
 })
 export class LoginComponent implements OnInit {
   
-  constructor(private router : Router, private login : LoginService) {
+  constructor(private toast:NgToastService,private router : Router, private login : LoginService) {
     /*if(localStorage.getItem("jwt")){
       this.router.navigate(['/login-with-facebook']);
     }*/
@@ -22,9 +23,9 @@ export class LoginComponent implements OnInit {
     this.login.Login(data);
     else{
       if(!data.email)
-      alert("Email Cannot be Empty");  
-      if(!data.password)
-      alert("Password Cannot be empty");
+      this.toast.error({detail:"Failure Message",summary:"Email Cannot be empty",duration:5000}); 
+      else if(!data.password)
+      this.toast.error({detail:"Failure Message",summary:"Password Cannot be empty",duration:5000});
     } 
   }
   ngOnInit(): void {

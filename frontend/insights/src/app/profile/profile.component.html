@@ -1,0 +1,18 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<h2>Profile</h2>
+<div class="profile_box">
+    <ngx-avatar class="Avatar_icon" src={{base64String}}  size="138"></ngx-avatar>
+    <div class="form_box">
+        <form class="profile_form" #profile="ngForm" (ngSubmit)="editprofile(profile.value)">
+            <input class="name_input" name="name" required type="text" ngModel placeholder="Name"/><br/>
+            <input class="occupation_input" name="occupation" required type="text" ngModel placeholder="Occupation"/><br/>
+            <label class="about">About</label><br/>
+            <textarea class="about_input" placeholder="Write Something about yourself..." name="about" required type="text" ngModel id="w3review" name="w3review" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
+            <br/>
+            <label class="email">Email</label><br/>
+            <input class="email_input" name="email" #email required type="text" ngModel placeholder="Email"/><br/>
+        <button type="submit">Edit</button><br/>
+        </form>
+    </div>
+</div>
