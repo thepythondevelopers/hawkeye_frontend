@@ -79,8 +79,8 @@ import { ProfileComponent } from './profile/profile.component';
         providers: [
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('674750610772811')
-            //provider: new FacebookLoginProvider('643056750524188')
+            //provider: new FacebookLoginProvider('674750610772811')
+            provider: new FacebookLoginProvider('643056750524188')
           }
         ],
         onError: (err) => {
