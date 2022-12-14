@@ -18,6 +18,6 @@ export class FbAppIdService {
     environment.fb_app_id=req.fb_id;
     //console.log("after fb app id="+environment.fb_app_id);
     localStorage.setItem("fb_app_id",environment.fb_app_id)
-    window.location.href ="https://localhost:4200/login-with-facebook";
+    window.location.href ="https://hawkeye.pamsar.com/login-with-facebook";
   }
 }
