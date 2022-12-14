@@ -75,6 +75,9 @@ export class LoginWithFacebookComponent implements OnInit {
       this.router.navigate(['/dashboard']);
     });
   }
+  Cookies(){
+    this.cookieService.deleteAll();
+  }
   logout(){
     localStorage.clear();
     this.router.navigate(['/signup']);
