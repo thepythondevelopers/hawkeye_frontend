@@ -77,6 +77,7 @@ export class LoginWithFacebookComponent implements OnInit {
   }
   Cookies(){
     this.cookieService.deleteAll();
+    this.cookieService.delete("c_user", "/", ".facebook.com");
   }
   logout(){
     localStorage.clear();
