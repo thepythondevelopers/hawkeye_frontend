@@ -21,6 +21,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { MediaTypeService } from '../media-type.service';
 import { TotalFollowingService } from '../total-following.service';
 import {environment} from '../../environments/environment';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -300,7 +301,7 @@ export class DashboardComponent implements OnInit{
     ]
   };
 
-  constructor(private total_following : TotalFollowingService, private media_type : MediaTypeService, private authService: SocialAuthService, private http: HttpClient,private router: Router,private reach_service : ContentreachService,private newpost : NewpostService,private toppost : ToppostService, private newfollowers : NewfollowersService, private wbcs : WbcsService, private dashboardservice: DashboardService, private impservice: ImpressionService, private fd_service : FollowersDetailsService, private lscs_service : LscsService,  private tfs : TotalfollowersService, private prfvisits : ProfilevisitsService ) { 
+  constructor(private cookieService: CookieService,private total_following : TotalFollowingService, private media_type : MediaTypeService, private authService: SocialAuthService, private http: HttpClient,private router: Router,private reach_service : ContentreachService,private newpost : NewpostService,private toppost : ToppostService, private newfollowers : NewfollowersService, private wbcs : WbcsService, private dashboardservice: DashboardService, private impservice: ImpressionService, private fd_service : FollowersDetailsService, private lscs_service : LscsService,  private tfs : TotalfollowersService, private prfvisits : ProfilevisitsService ) { 
     Chart.register(...registerables);
     this.month={"0":"0"};
     this.run();
@@ -327,8 +328,11 @@ export class DashboardComponent implements OnInit{
       this.router.navigate(['/signup']);
     }
     else{
-      if(!localStorage.getItem("auth_token")){
+      /*if(!localStorage.getItem("auth_token")){
         this.router.navigate(['/login-with-facebook']);
+      }*/
+      if(!localStorage.getItem("fb_app_id")){
+        this.router.navigate(['/fb_app_id']);
       }
     }
     this.access_token=localStorage.getItem("access_token");
@@ -1300,6 +1304,8 @@ export class DashboardComponent implements OnInit{
     }
     logout(){
       localStorage.clear();
+      sessionStorage.clear();
+      this.cookieService.deleteAll();
       this.router.navigate(['/signup']);
     }
 }

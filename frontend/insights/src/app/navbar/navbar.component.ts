@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { ProfileImageService } from '../profile-image.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class NavbarComponent implements OnInit {
   toDisplay_dropdown_beside_profile=false;
   profile_image: any;
   base64String:any;
-  constructor(private router: Router,private pis: ProfileImageService) { 
+  constructor(private cookieService: CookieService,private router: Router,private pis: ProfileImageService) { 
     this.pis.get_profile_image().subscribe((res)=>{
       console.log("response form set profile image=",Object.entries(res))
       if(Object.entries(res)[0][0]==="updated_profile_image"){
@@ -34,6 +35,7 @@ export class NavbarComponent implements OnInit {
   }
   logout(){
     localStorage.clear();
+    this.cookieService.deleteAll();
     this.router.navigate(['/signup']);
   }
   profile(){

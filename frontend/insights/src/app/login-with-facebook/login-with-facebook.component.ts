@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import { ProfileImageService } from '../profile-image.service';
+import { SocialAuthServiceConfig } from 'angularx-social-login';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login-with-facebook',
@@ -17,7 +19,7 @@ export class LoginWithFacebookComponent implements OnInit {
   access_token: any;
   ig_id: any;
 
-  constructor(private pis: ProfileImageService,private http: HttpClient, private router : Router, private authService: SocialAuthService,) {
+  constructor(private cookieService: CookieService,private pis: ProfileImageService,private http: HttpClient, private router : Router, private authService: SocialAuthService,) {
     /*if(!localStorage.getItem("jwt")){
       this.router.navigate(['/signup']);
     }
@@ -26,8 +28,12 @@ export class LoginWithFacebookComponent implements OnInit {
         this.router.navigate(['/dashboard']);  
       }
     }*/
+    this.cookieService.delete("c_user","/",".facebook.com",true,"None");
     if(!localStorage.getItem("email")){
       this.router.navigate(['/signup']);
+    }
+    else if(!localStorage.getItem("fb_app_id")){
+      this.router.navigate(['/fb_app_id']);  
     }
     else{
       if(localStorage.getItem("auth_token")){

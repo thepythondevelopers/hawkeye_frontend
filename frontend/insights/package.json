@@ -25,6 +25,7 @@
     "ng-angular-popup": "^0.2.0",
     "ng2-charts": "^4.0.1",
     "ngx-avatar": "^4.1.0",
+    "ngx-cookie-service": "^15.0.0",
     "ngx-stripe": "^7.4.4",
     "ngx-toastr": "^16.0.1",
     "rxjs": "~7.5.0",

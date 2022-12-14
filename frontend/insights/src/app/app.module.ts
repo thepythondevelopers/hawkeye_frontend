@@ -32,6 +32,9 @@ import { SuccessComponent } from './success/success.component';
 import { CancelComponent } from './cancel/cancel.component';
 import { NgToastModule } from 'ng-angular-popup';
 import { ProfileComponent } from './profile/profile.component';
+import { FbIdComponent } from './fb-id/fb-id.component';
+import { environment } from 'src/environments/environment';
+import { FacebookAppIdModule } from './facebook-app-id/facebook-app-id.module';
 
 
 @NgModule({
@@ -59,7 +62,8 @@ import { ProfileComponent } from './profile/profile.component';
     NavbarComponent,
     SuccessComponent,
     CancelComponent,
-    ProfileComponent
+    ProfileComponent,
+    FbIdComponent
   ],
   imports: [
     BrowserModule,
@@ -69,9 +73,10 @@ import { ProfileComponent } from './profile/profile.component';
     SocialLoginModule,
     NgChartsModule,
     NgToastModule,
-    AvatarModule
+    AvatarModule,
+    FacebookAppIdModule
   ],
-  providers: [
+  /*providers: [
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -79,7 +84,7 @@ import { ProfileComponent } from './profile/profile.component';
         providers: [
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('674750610772811')
+            provider: new FacebookLoginProvider(environment.fb_app_id)
             //provider: new FacebookLoginProvider('643056750524188')
           }
         ],
@@ -88,7 +93,7 @@ import { ProfileComponent } from './profile/profile.component';
         }
       } as SocialAuthServiceConfig,
     }
-  ],
+  ],*/
   bootstrap: [AppComponent]
 })
 export class AppModule { }
