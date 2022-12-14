@@ -15,6 +15,13 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  switch_account(){
+    localStorage.removeItem('fb_app_id');
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('ig_id');
+    localStorage.removeItem('access_token');
+    window.location.href="https://hawkeye.pamsar.com/fb_app_id";
+  }
   toggleData1() {
     this.toDisplay1 = !this.toDisplay1;
     this.toDisplay_fdo=false;

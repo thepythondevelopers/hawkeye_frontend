@@ -25,5 +25,6 @@
         <li (click)="toggleData3()" class="text"><img class="support_icon" src="../assets/images/support.png" alt="support_img"><div class="help-div">Settings</div><div *ngIf="!toDisplay3" class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></div><div *ngIf="toDisplay3" class="angle-up"><i class="fa fa-angle-up" aria-hidden="true"></i></div></li>
         <li *ngIf="toDisplay3" class="text">Update Profile</li>
         <li *ngIf="toDisplay3" class="text">Change card</li>
+        <li (click)="switch_account()" class="text"><img class="support_icon" src="../assets/images/support.png" alt="support_img"><div class="help-div">Switch Ig Account</div></li>
     </ul>
     </div>

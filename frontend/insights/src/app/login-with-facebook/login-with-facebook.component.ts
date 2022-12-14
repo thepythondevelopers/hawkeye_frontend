@@ -18,6 +18,7 @@ export class LoginWithFacebookComponent implements OnInit {
   authtoken:any;
   access_token: any;
   ig_id: any;
+  connect_to_fb_btn: any=false;
 
   constructor(private cookieService: CookieService,private pis: ProfileImageService,private http: HttpClient, private router : Router, private authService: SocialAuthService,) {
     /*if(!localStorage.getItem("jwt")){
@@ -76,6 +77,7 @@ export class LoginWithFacebookComponent implements OnInit {
     });
   }
   Cookies(){
+    this.connect_to_fb_btn=true;
     this.cookieService.deleteAll();
     this.authService.signOut();
   }

@@ -3,9 +3,9 @@
     <div class="signin_box box_color">
         <div class="form_box">
             <h2 class="heading1">Connect Through Facebook</h2>
-            <img class="connect-to-fb-btn" src="../assets/images/facebook.png" (click)="signInWithFB()" />
+            <img *ngIf="connect_to_fb_btn" class="connect-to-fb-btn" src="../assets/images/facebook.png" (click)="signInWithFB()" />
+            <button *ngIf="!connect_to_fb_btn" class="connect-to-fb-btn" (click)="Cookies()">CLICK HERE TO CONTINUE</button>
             <button (click)="logout()">LOGOUT</button>
-            <button (click)="Cookies()">Clear Cookies</button>
         </div>
         <img class="login_img background-login-img" src="../assets/images/connect.png" alt="login_img">
         <p class="copyright">2022 © All Rights Reserved. Terms of Service</p>
