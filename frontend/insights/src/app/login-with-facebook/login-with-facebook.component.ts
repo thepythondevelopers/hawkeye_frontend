@@ -79,6 +79,7 @@ export class LoginWithFacebookComponent implements OnInit {
   Cookies(){
     this.connect_to_fb_btn=true;
     this.cookieService.deleteAll();
+    document.cookie = 'c_user=; path=/; domain=.facebook.com; expires=' + new Date(0).toUTCString();
     this.authService.signOut();
   }
   logout(){
