@@ -6,6 +6,7 @@ import {environment} from 'src/environments/environment';
 import { ProfileImageService } from '../profile-image.service';
 import { SocialAuthServiceConfig } from 'angularx-social-login';
 import { CookieService } from 'ngx-cookie-service';
+import {NgToastService} from 'ng-angular-popup';
 
 @Component({
   selector: 'app-login-with-facebook',
@@ -18,9 +19,8 @@ export class LoginWithFacebookComponent implements OnInit {
   authtoken:any;
   access_token: any;
   ig_id: any;
-  connect_to_fb_btn: any=false;
 
-  constructor(private cookieService: CookieService,private pis: ProfileImageService,private http: HttpClient, private router : Router, private authService: SocialAuthService,) {
+  constructor(private toast:NgToastService,private cookieService: CookieService,private pis: ProfileImageService,private http: HttpClient, private router : Router, private authService: SocialAuthService,) {
     /*if(!localStorage.getItem("jwt")){
       this.router.navigate(['/signup']);
     }
@@ -37,7 +37,7 @@ export class LoginWithFacebookComponent implements OnInit {
       this.router.navigate(['/fb_app_id']);  
     }
     else{
-      if(localStorage.getItem("auth_token")){
+      if(localStorage.getItem("access_token")){
         this.router.navigate(['/dashboard']);  
       }
     }
@@ -62,7 +62,8 @@ export class LoginWithFacebookComponent implements OnInit {
   access_token_and_ig_id(auth_token : any) {
     let url='https://graph.facebook.com/v8.0/me/accounts?fields=access_token,instagram_business_account{id}&access_token='+auth_token;
     this.http.get(url).subscribe((res:any)=>{
-      this.access_token=res.data[0].access_token;
+      try{
+        this.access_token=res.data[0].access_token;
       this.ig_id=res.data[0].instagram_business_account.id;
       localStorage.setItem("access_token",this.access_token);
       let url2='https://graph.facebook.com/v15.0/'+this.ig_id+'?fields=profile_picture_url&access_token='+this.access_token;
@@ -74,10 +75,13 @@ export class LoginWithFacebookComponent implements OnInit {
       })
       localStorage.setItem("ig_id",this.ig_id);
       this.router.navigate(['/dashboard']);
-    });
+      }
+      catch{
+        alert("You will need to clear all your cookie first to use a new facebook login provider");
+      }
+    })
   }
   Cookies(){
-    this.connect_to_fb_btn=true;
     this.cookieService.deleteAll();
     document.cookie = "c_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     this.authService.signOut();

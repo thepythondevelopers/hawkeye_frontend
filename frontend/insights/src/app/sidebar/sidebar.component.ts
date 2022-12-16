@@ -16,11 +16,13 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
   }
   switch_account(){
-    localStorage.removeItem('fb_app_id');
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('ig_id');
-    localStorage.removeItem('access_token');
-    window.location.href="https://hawkeye.pamsar.com/fb_app_id";
+    let email=localStorage.getItem("email");
+    let fb_app_id=localStorage.getItem("fb_app_id");
+    localStorage.clear();
+    localStorage.setItem("email",<any>email);
+    localStorage.setItem("fb_app_id",<any>fb_app_id);
+    alert("To switch between ig account just change the connected ig account to your fb page and then connect with facebook");
+    window.location.href="https://hawkeye.pamsar.com/login-with-facebook";
   }
   toggleData1() {
     this.toDisplay1 = !this.toDisplay1;
