@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ProfileImageService } from '../profile-image.service';
@@ -12,18 +13,22 @@ export class NavbarComponent implements OnInit {
   toDisplay_dropdown_beside_profile=false;
   profile_image: any;
   base64String:any;
-  constructor(private cookieService: CookieService,private router: Router,private pis: ProfileImageService) { 
+  sdp: any=false;
+  imageurl: any;
+  constructor(private domSanitizer: DomSanitizer,private cookieService: CookieService,private router: Router,private pis: ProfileImageService) { 
     this.pis.get_profile_image().subscribe((res)=>{
-      console.log("response form set profile image=",Object.entries(res))
+      console.log("profile image=",Object.entries(res)[0][1].data.data);
       if(Object.entries(res)[0][0]==="updated_profile_image"){
-        this.profile_image=Object.entries(res)[0][1].data;
-      console.log("response from get image=",Object.entries(res)[0][1].data);
-      this.base64String="data:image/png;base64,"+Object.entries(res)[0][1].data;
-      //console.log("base url64=",this.base64String);
+        let TYPED_ARRAY = new Uint8Array(Object.entries(res)[0][1].data.data);
+        const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+          return data + String.fromCharCode(byte);
+          }, '')
+          let base64String = btoa(STRING_CHAR);
+          this.imageurl = 'data:image/jpg;base64, ' + base64String;
       }
-      if(Object.entries(res)[0][0]==="insta_profile_image"){
-      console.log("response from get image=",Object.entries(res)[0][1]);
-      this.base64String=Object.entries(res)[0][1];
+      if(Object.entries(res)[0][1]==="show default avatar"){
+      this.sdp=true;
+      console.log("sdp="+this.sdp);
       }
     })
   }

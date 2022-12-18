@@ -12,6 +12,6 @@ export class ProfileImageService {
     return this.http.post(environment.baseURL+'/set-profile-image',({"profile_image":pi,"email":localStorage.getItem("email")}))
   }
   get_profile_image(){
-    return this.http.post(environment.baseURL+'/set-profile-image',({"email":localStorage.getItem("email")}))
+    return this.http.post(environment.baseURL+'/get-profile-image',({"email":localStorage.getItem("email")}))
   }
 }
