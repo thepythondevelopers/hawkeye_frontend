@@ -18,6 +18,7 @@ export class FbIdComponent implements OnInit {
       console.log("plan response=",res.user_current_plan.plan);
       if(res.user_current_plan.plan==="Null"){
         this.toast.info({detail:"Failure Message",summary:"Please buy a suscription first",duration:5000});
+        this.router.navigate(['/pricing'])
       }
     });
 
