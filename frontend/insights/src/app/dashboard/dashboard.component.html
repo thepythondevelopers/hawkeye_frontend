@@ -83,8 +83,15 @@
 <div class="grid-container2">
 <app-newfollwers></app-newfollwers>
 <div class="followers-details-visuals"><app-followers-details-visuals></app-followers-details-visuals></div>
-<div class="d2 Followers_and_non_followers"><h3>Followers and Non Followers</h3>
-    <div class="doughnut-lg"><canvas class="doughnut-graph" baseChart width="600" height="450" [type]="doughnutChartType"  [data]="doughnutChartData"></canvas></div>
+<div class="d2 Followers_and_non_followers"><h3>Engagement & Interaction</h3>
+    <div class="feed_engagement_block">
+        <div class="feed_engagement">{{feed_engagement}}</div>
+        <div class="feed_engagement_text">Feeds Engagement</div>
+    </div>
+    <div class="reel_interaction_block">
+        <div class="reel_interaction">{{reel_interaction}}</div>
+        <div class="reel_interaction_text">Reels Interaction</div>
+    </div>
 </div>
 </div>
 </div>

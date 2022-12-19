@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
+import { CheckUserPlanService } from '../check-user-plan.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +13,7 @@ export class SidebarComponent implements OnInit {
   toDisplay_fdo=false;
   toDisplay1 = false;
   toDisplay3 = false;
-  constructor(private router: Router) { }
+  constructor(private toast:NgToastService,private cup: CheckUserPlanService,private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -35,7 +37,16 @@ export class SidebarComponent implements OnInit {
     this.toDisplay3 = !this.toDisplay3;
   }
   ndp(){
-    this.router.navigate(['/dashboard'])
+    let email=localStorage.getItem('email');
+    this.cup.check_user_plan(email).subscribe((res:any)=>{
+      console.log("plan response=",res.user_current_plan.plan);
+      if(res.user_current_plan.plan==="Null"){
+        this.toast.info({detail:"Failure Message",summary:"Please buy a suscription first",duration:5000});
+      }
+      else{
+        this.router.navigate(['/dashboard']);
+      }
+    });
   }
   fdp(){
     this.toDisplay_fdo=!this.toDisplay_fdo;

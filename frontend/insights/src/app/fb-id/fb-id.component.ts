@@ -14,6 +14,9 @@ export class FbIdComponent implements OnInit {
     if(localStorage.getItem("fb_app_id")){
       this.router.navigate(['/login-with-facebook']);  
     }
+    if(!localStorage.getItem("email")){
+      this.router.navigate(['/signup']);  
+    }
    }
   logindata(data:any){
     if(data.fb_id)

@@ -22,6 +22,8 @@ import { MediaTypeService } from '../media-type.service';
 import { TotalFollowingService } from '../total-following.service';
 import {environment} from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
+import { NgToastService } from 'ng-angular-popup';
+import { EngagementInteractionsService } from '../engagement-interactions.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -150,6 +152,8 @@ export class DashboardComponent implements OnInit{
   toppost_permalink3:string="";
   toppost_permalink4:string="";
   toDisplay_fdo=false;
+  feed_engagement: number=0;
+  reel_interaction: number=0;
 
 
   select_reach_period() {
@@ -301,7 +305,7 @@ export class DashboardComponent implements OnInit{
     ]
   };
 
-  constructor(private cookieService: CookieService,private total_following : TotalFollowingService, private media_type : MediaTypeService, private authService: SocialAuthService, private http: HttpClient,private router: Router,private reach_service : ContentreachService,private newpost : NewpostService,private toppost : ToppostService, private newfollowers : NewfollowersService, private wbcs : WbcsService, private dashboardservice: DashboardService, private impservice: ImpressionService, private fd_service : FollowersDetailsService, private lscs_service : LscsService,  private tfs : TotalfollowersService, private prfvisits : ProfilevisitsService ) { 
+  constructor(private eandi: EngagementInteractionsService,private toast:NgToastService,private cookieService: CookieService,private total_following : TotalFollowingService, private media_type : MediaTypeService, private authService: SocialAuthService, private http: HttpClient,private router: Router,private reach_service : ContentreachService,private newpost : NewpostService,private toppost : ToppostService, private newfollowers : NewfollowersService, private wbcs : WbcsService, private dashboardservice: DashboardService, private impservice: ImpressionService, private fd_service : FollowersDetailsService, private lscs_service : LscsService,  private tfs : TotalfollowersService, private prfvisits : ProfilevisitsService ) { 
     Chart.register(...registerables);
     this.month={"0":"0"};
     this.run();
@@ -349,6 +353,7 @@ export class DashboardComponent implements OnInit{
     this.nfs_week();
     this.fd();
     this.cr();
+    this.engagment_interaction();
     //this.new_following_month_p();
     //this.t_following();
   }
@@ -925,6 +930,9 @@ export class DashboardComponent implements OnInit{
   tf(){
     this.tfs.totalfollowers(this.access_token,this.ig_id).subscribe((res)=>{
       this.total_followers = Object.entries(res)[0][1];
+      if(this.total_followers<100){
+       alert("Make sure to have more than 100 total followers on ig for all the functionalities to work properly");
+      }
       /*let len = Object.entries(res)[0][1][0]["values"].length;
       //console.log(len);
       var i,impressions=0;
@@ -1300,6 +1308,33 @@ export class DashboardComponent implements OnInit{
         }
         })
       })
+      })
+    }
+    engagment_interaction(){
+      this.lscs_service.like(this.access_token,this.ig_id).subscribe((res)=>{
+        let length=Object.entries(res)[0][1].length;
+        let ig_media_id,type_media_id;
+        console.log("length",length)
+        for(let i=0;i<length;i++){
+          ig_media_id=Object.entries(res)[0][1][i].id;
+          this.media_type.mt(this.access_token,ig_media_id).subscribe((res: any) => {
+            console.log("media_product_type",res.media_product_type);
+            type_media_id=res.id;
+            //console.log(res.media_product_type);
+            if (res.media_product_type === "FEED") {
+              this.eandi.engagement(this.access_token,type_media_id).subscribe((resp)=>{
+                //console.log("feed engagement=",Object.entries(resp)[0][1][0].values[0].value);
+                 this.feed_engagement=this.feed_engagement+Object.entries(resp)[0][1][0].values[0].value;
+              })
+            }
+            if (res.media_product_type === "REELS") {
+              this.eandi.interaction(this.access_token,type_media_id).subscribe((resp)=>{
+                //console.log("reels engagement=",Object.entries(resp));
+                this.reel_interaction=this.reel_interaction+Object.entries(resp)[0][1][0].values[0].value;
+              })
+            }
+          });
+        }
       })
     }
     logout(){
