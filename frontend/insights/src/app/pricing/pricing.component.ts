@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CheckoutService } from '../checkout.service';
 import { CheckUserPlanService } from '../check-user-plan.service';
 import { NgToastService } from 'ng-angular-popup';
+import { CfiService } from '../cfi.service';
 
 @Component({
   selector: 'app-pricing',
@@ -14,8 +15,8 @@ import { NgToastService } from 'ng-angular-popup';
 @Injectable()
 export class PricingComponent implements OnInit {
 
-  constructor(private toast:NgToastService,private cup: CheckUserPlanService,private http: HttpClient,private router : Router,private checkout: CheckoutService) { 
-
+  constructor(private cfi: CfiService,private toast:NgToastService,private cup: CheckUserPlanService,private http: HttpClient,private router : Router,private checkout: CheckoutService) { 
+    this.check_plan();
   }
 
   ngOnInit(): void {
@@ -26,6 +27,20 @@ export class PricingComponent implements OnInit {
 
   in_development(){
     this.toast.info({detail:"Info Message",summary:"This plan is under devlopment",duration:5000});
+  }
+
+  check_plan(){
+    this.cup.check_user_plan(localStorage.getItem("email")).subscribe((response:any)=>{
+      if(response.user_current_plan.plan==="Null"){
+        console.log("you need to buy plan in order to get multiple insta accounts insights");
+      }
+      else{
+        console.log("create five insta allotments for the user");
+        this.cfi.create_five_insta_allotments_for_the_user().subscribe((res)=>{
+          console.log("response=",res);
+        })
+      }
+    })
   }
 
   freelancer_package(data:any) {

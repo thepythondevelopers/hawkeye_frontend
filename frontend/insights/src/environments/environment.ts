@@ -9,7 +9,6 @@ export const environment = {
   env_var_tp_saved: 0,
   env_var_tp_reach: 0,
   fb_app_id: ''
-
 };
 
 /*

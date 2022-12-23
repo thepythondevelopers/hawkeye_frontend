@@ -4,6 +4,11 @@ padding-top: 20px;
 padding-bottom: 20px;
 width: 200px;
 }
+.error{
+    color: red;
+    padding: 20px;
+    padding-bottom: 0px;
+}
 .form_box{
     position: absolute;
     width: 583px;
@@ -39,7 +44,7 @@ width: 200px;
     justify-content: center;
     align-items: center;
     padding: 6px 30px;
-    margin-top: 270px;
+    margin-top: 250px;
     gap: 10px;
     margin-left: 50px;
     width: 328px;
@@ -55,7 +60,7 @@ button{
     padding: 6px 30px;
     color: #FFFFFF;
     border: none;
-    margin: 60px 0px 0px 50px;
+    margin: 40px 0px 0px 50px;
     gap: 10px;
     width: 144px;
     height: 34px;
@@ -79,7 +84,7 @@ border-radius: 22px;
     height: 53px;
     float: center;
     width: 450px;
-    margin: 120px 0px 0px 50px;
+    margin: 100px 0px 0px 50px;
     font-family: 'Quicksand';
     font-style: normal;
     font-weight: 700;

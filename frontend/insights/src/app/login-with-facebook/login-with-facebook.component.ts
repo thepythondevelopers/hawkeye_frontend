@@ -7,6 +7,7 @@ import { ProfileImageService } from '../profile-image.service';
 import { SocialAuthServiceConfig } from 'angularx-social-login';
 import { CookieService } from 'ngx-cookie-service';
 import {NgToastService} from 'ng-angular-popup';
+import { FillInstaAccountsService } from '../fill-insta-accounts.service';
 
 @Component({
   selector: 'app-login-with-facebook',
@@ -19,8 +20,11 @@ export class LoginWithFacebookComponent implements OnInit {
   authtoken:any;
   access_token: any;
   ig_id: any;
+  sno: any;
+  errors: any;
+  displayerrors: any=false;
 
-  constructor(private toast:NgToastService,private cookieService: CookieService,private pis: ProfileImageService,private http: HttpClient, private router : Router, private authService: SocialAuthService,) {
+  constructor(private fia : FillInstaAccountsService,private toast:NgToastService,private cookieService: CookieService,private pis: ProfileImageService,private http: HttpClient, private router : Router, private authService: SocialAuthService,) {
     /*if(!localStorage.getItem("jwt")){
       this.router.navigate(['/signup']);
     }
@@ -38,7 +42,7 @@ export class LoginWithFacebookComponent implements OnInit {
     }
     else{
       if(localStorage.getItem("access_token")){
-        this.router.navigate(['/dashboard']);  
+        //this.router.navigate(['/dashboard']);  
       }
     }
    }
@@ -62,23 +66,22 @@ export class LoginWithFacebookComponent implements OnInit {
   access_token_and_ig_id(auth_token : any) {
     let url='https://graph.facebook.com/v8.0/me/accounts?fields=access_token,instagram_business_account{id}&access_token='+auth_token;
     this.http.get(url).subscribe((res:any)=>{
-      try{
-        this.access_token=res.data[0].access_token;
-      this.ig_id=res.data[0].instagram_business_account.id;
-      localStorage.setItem("access_token",this.access_token);
-      let url2='https://graph.facebook.com/v15.0/'+this.ig_id+'?fields=profile_picture_url&access_token='+this.access_token;
-      this.http.get(url2).subscribe((resp:any)=>{
-        let profile_image=resp.profile_picture_url;
-        this.pis.set_image(profile_image).subscribe((response)=>{
-
-        })
-      })
-      localStorage.setItem("ig_id",this.ig_id);
-      this.router.navigate(['/dashboard']);
-      }
-      catch{
-        alert("You will need to clear all your cookie first to use a new facebook login provider");
-      }
+        console.log("data in response=",res.data);
+        for(let i=0;i<res.data.length;i++){
+          this.access_token=res.data[i].access_token;
+          this.ig_id=res.data[i].instagram_business_account.id;
+          this.sno=i+1;
+          this.fia.fill_insta_accounts(localStorage.getItem("email"),this.access_token,this.ig_id,this.sno).subscribe((response)=>{
+            console.log("repsonse from fill accounts::",response);
+          })
+        }
+        localStorage.setItem("access_token",res.data[0].access_token);
+        localStorage.setItem("ig_id",res.data[0].instagram_business_account.id);
+        this.router.navigate(['/dashboard']);
+    },error => {
+      this.displayerrors=true;
+      this.errors = error;
+      this.errors=this.errors.error.error.message;
     })
   }
   Cookies(){

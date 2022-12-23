@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { CheckUserPlanService } from '../check-user-plan.service';
+import { GetInstaAccountsService } from '../get-insta-accounts.service';
+import { ModalserviceService } from '../modalservice.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,18 +15,55 @@ export class SidebarComponent implements OnInit {
   toDisplay_fdo=false;
   toDisplay1 = false;
   toDisplay3 = false;
-  constructor(private toast:NgToastService,private cup: CheckUserPlanService,private router: Router) { }
+  toDisplay4 = false;
+  switch_account_1: any;
+  switch_account_2: any;
+  switch_account_3: any;
+  switch_account_4: any;
+  switch_account_5: any;
+  access_token_1: any;
+  access_token_2: any;
+  access_token_3: any;
+  access_token_4: any;
+  access_token_5: any;
+  ig_id_1: any;
+  ig_id_2: any;
+  ig_id_3: any;
+  ig_id_4: any;
+  ig_id_5: any;
+  toDisplaymodal: any=false;
+
+  constructor(private modaldata:ModalserviceService,private gia: GetInstaAccountsService,private toast:NgToastService,private cup: CheckUserPlanService,private router: Router) {}
 
   ngOnInit(): void {
   }
   switch_account(){
-    let email=localStorage.getItem("email");
+    this.toDisplay4 = !this.toDisplay4;
+    this.gia.accounts(localStorage.getItem("email")).subscribe((res)=>{
+      console.log("response::",Object.entries(res)[0]);
+      this.switch_account_1=Object.entries(res)[0][1].account_1;
+      this.switch_account_2=Object.entries(res)[0][1].account_2;
+      this.switch_account_3=Object.entries(res)[0][1].account_3;
+      this.switch_account_4=Object.entries(res)[0][1].account_4;
+      this.switch_account_5=Object.entries(res)[0][1].account_5;
+      this.access_token_1=Object.entries(res)[0][1].access_token_1;
+      this.access_token_2=Object.entries(res)[0][1].access_token_2;
+      this.access_token_3=Object.entries(res)[0][1].access_token_3;
+      this.access_token_4=Object.entries(res)[0][1].access_token_4;
+      this.access_token_5=Object.entries(res)[0][1].access_token_5;
+      this.ig_id_1=Object.entries(res)[0][1].ig_id_1;
+      this.ig_id_2=Object.entries(res)[0][1].ig_id_2;
+      this.ig_id_3=Object.entries(res)[0][1].ig_id_3;
+      this.ig_id_4=Object.entries(res)[0][1].ig_id_4;
+      this.ig_id_5=Object.entries(res)[0][1].ig_id_5;
+    })
+    /*let email=localStorage.getItem("email");
     let fb_app_id=localStorage.getItem("fb_app_id");
     localStorage.clear();
     localStorage.setItem("email",<any>email);
     localStorage.setItem("fb_app_id",<any>fb_app_id);
     alert("To switch between ig account just change the connected ig account to your fb page and then connect with facebook");
-    window.location.href="https://hawkeye.pamsar.com/login-with-facebook";
+    window.location.href="https://localhost:4200/login-with-facebook";*/
   }
   toggleData1() {
     this.toDisplay1 = !this.toDisplay1;
@@ -74,5 +113,63 @@ export class SidebarComponent implements OnInit {
   }
   bga(){
     this.router.navigate(['followers-details/gender_age'])
+  }
+  sa_1(){
+    localStorage.setItem("access_token",this.access_token_1);
+    localStorage.setItem("ig_id",this.ig_id_1);
+    window.location.reload();
+  }
+  sa_2(){
+    localStorage.setItem("access_token",this.access_token_2);
+    localStorage.setItem("ig_id",this.ig_id_2);
+    window.location.reload();
+  }
+  sa_3(){
+    localStorage.setItem("access_token",this.access_token_3);
+    localStorage.setItem("ig_id",this.ig_id_3);
+    window.location.reload();
+  }
+  sa_4(){
+    localStorage.setItem("access_token",this.access_token_4);
+    localStorage.setItem("ig_id",this.ig_id_4);
+    window.location.reload();
+  }
+  sa_5(){
+    localStorage.setItem("access_token",this.access_token_5);
+    localStorage.setItem("ig_id",this.ig_id_5);
+    window.location.reload();
+  }
+  close_modal(){
+    this.toDisplaymodal=false;
+  }
+  ea_1(){
+    this.toDisplaymodal=true;
+    localStorage.setItem("edit_for","account_1");
+  }
+  ea_2(){
+    this.toDisplaymodal=true;
+    localStorage.setItem("edit_for","account_2");
+  }
+  ea_3(){
+    this.toDisplaymodal=true;
+    localStorage.setItem("edit_for","account_3");
+  }
+  ea_4(){
+    this.toDisplaymodal=true;
+    localStorage.setItem("edit_for","account_4");
+  }
+  ea_5(){
+    this.toDisplaymodal=true;
+    localStorage.setItem("edit_for","account_5");
+  }
+  modal_data(data:any){
+    console.log("modal-data::",data);
+    this.modaldata.change_name(localStorage.getItem("email"),data,localStorage.getItem("edit_for")).subscribe((res)=>{
+      console.log("respnse from modal data::",Object.entries(res));
+      if(Object.entries(res)[0][1]==="name updated successfully"){
+        localStorage.removeItem("edit_for");
+        window.location.reload()
+      }
+    })
   }
 }

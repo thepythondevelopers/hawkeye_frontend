@@ -36,7 +36,6 @@ import { FbIdComponent } from './fb-id/fb-id.component';
 import { environment } from 'src/environments/environment';
 import { FacebookAppIdModule } from './facebook-app-id/facebook-app-id.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,
