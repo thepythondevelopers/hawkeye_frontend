@@ -32,6 +32,7 @@ export class SidebarComponent implements OnInit {
   ig_id_4: any;
   ig_id_5: any;
   toDisplaymodal: any=false;
+  toDisplaymodal_sub: any=false;
 
   constructor(private modaldata:ModalserviceService,private gia: GetInstaAccountsService,private toast:NgToastService,private cup: CheckUserPlanService,private router: Router) {}
 
@@ -141,6 +142,10 @@ export class SidebarComponent implements OnInit {
   }
   close_modal(){
     this.toDisplaymodal=false;
+    this.toDisplaymodal_sub=false;
+  }
+  cancel_sub(){
+    this.toDisplaymodal_sub=true;
   }
   ea_1(){
     this.toDisplaymodal=true;
@@ -165,11 +170,24 @@ export class SidebarComponent implements OnInit {
   modal_data(data:any){
     console.log("modal-data::",data);
     this.modaldata.change_name(localStorage.getItem("email"),data,localStorage.getItem("edit_for")).subscribe((res)=>{
-      console.log("respnse from modal data::",Object.entries(res));
+      console.log("response from modal data::",Object.entries(res));
       if(Object.entries(res)[0][1]==="name updated successfully"){
         localStorage.removeItem("edit_for");
         window.location.reload()
       }
     })
+  }
+  modal_data_sub(data:any){
+    console.log("modal-data_sub::",data);
+      this.modaldata.cancel_subscription(localStorage.getItem("email")).subscribe((res:any)=>{
+        if(Object.entries(res)[0][1]==="Subscription cancelled successfully"){
+          this.toast.success({detail:"Success Message",summary:"Subscription cancelled successfully",duration:5000});
+          let email=localStorage.getItem("email");
+          localStorage.clear();
+          localStorage.setItem("email",<any>email);
+          this.router.navigate(['/pricing']);
+
+        }
+      })
   }
 }

@@ -13,4 +13,7 @@ export class ModalserviceService {
     console.log("change name::",email,req);
     return this.http.post(environment.baseURL+'/edit_name',{"email":email,"name":req.name,"edit_for":edit_for});
   }
+  cancel_subscription(email:any){
+    return this.http.post(environment.baseURL+'/cancel_subscription',{"email":email});
+  }
 }
