@@ -146,7 +146,6 @@ export class SidebarComponent implements OnInit {
   }
   cancel_sub(){
     this.toDisplaymodal_sub=true;
-    alert("working cancel subscription");
   }
   ea_1(){
     this.toDisplaymodal=true;
