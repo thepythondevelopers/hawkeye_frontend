@@ -37,6 +37,7 @@ export class SuccessComponent implements OnInit {
           if(status==="succeeded"){
             this.ls.list_subscription(customer).subscribe((res_data)=>{
               let si=Object.entries(res_data)[1][1][0].id
+              console.log("si::",si);
               this.sub_id.save_subscription(localStorage.getItem("email"),si).subscribe((response_data)=>{
                 console.log("save subscription::",response_data);
               })
