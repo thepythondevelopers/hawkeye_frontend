@@ -190,4 +190,7 @@ export class SidebarComponent implements OnInit {
         }
       })
   }
+  in_development(){
+    this.toast.info({detail:"Info Message",summary:"This plan is under devlopment",duration:5000});
+  }
 }
