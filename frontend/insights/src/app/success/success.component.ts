@@ -35,6 +35,7 @@ export class SuccessComponent implements OnInit {
           let status=res.data[0].status;
           console.log("status=",status);
           if(status==="succeeded"){
+            alert("working");
             this.ls.list_subscription(customer).subscribe((res_data)=>{
               let si=Object.entries(res_data)[1][1][0].id
               console.log("si::",si);
@@ -42,6 +43,9 @@ export class SuccessComponent implements OnInit {
                 console.log("save subscription::",response_data);
               })
             })
+          }
+          else{
+            alert("not working");
           }
           let date=new Date();
           let latest_date_in_unix=Math.floor(date.getTime() / 1000);
