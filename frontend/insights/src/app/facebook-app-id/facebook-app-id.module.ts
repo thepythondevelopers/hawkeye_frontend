@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FbIdComponent } from '../fb-id/fb-id.component';
 import { FacebookLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
 import { environment } from 'src/environments/environment';
 @NgModule({
