@@ -6,6 +6,7 @@ import { PaymentListService } from '../payment-list.service';
 import {environment} from '../../environments/environment';
 import { ListSubscriptionService } from '../list-subscription.service';
 import { SaveSubscriptionService } from '../save-subscription.service';
+import { SaveCustIdService } from '../save-cust-id.service';
 
 @Component({
   selector: 'app-success',
@@ -14,7 +15,7 @@ import { SaveSubscriptionService } from '../save-subscription.service';
 })
 export class SuccessComponent implements OnInit {
 
-  constructor(private sub_id:SaveSubscriptionService,private ls:ListSubscriptionService,private http : HttpClient,private router : Router, private payment_list:PaymentListService) {
+  constructor(private sci:SaveCustIdService,private sub_id:SaveSubscriptionService,private ls:ListSubscriptionService,private http : HttpClient,private router : Router, private payment_list:PaymentListService) {
     this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
       let my_plan = Object.entries(response)[0][1];
       console.log("My plan=",my_plan);
@@ -35,7 +36,6 @@ export class SuccessComponent implements OnInit {
           let status=res.data[0].status;
           console.log("status=",status);
           if(status==="succeeded"){
-            alert("working");
             this.ls.list_subscription(customer).subscribe((res_data)=>{
               let si=Object.entries(res_data)[1][1][0].id
               console.log("si::",si);
@@ -43,9 +43,9 @@ export class SuccessComponent implements OnInit {
                 console.log("save subscription::",response_data);
               })
             })
-          }
-          else{
-            alert("not working");
+            this.sci.save_cust_id(localStorage.getItem("email"),customer).subscribe((res_data)=>{
+              console.log("reponse from save cust_id::",res_data);
+            })
           }
           let date=new Date();
           let latest_date_in_unix=Math.floor(date.getTime() / 1000);

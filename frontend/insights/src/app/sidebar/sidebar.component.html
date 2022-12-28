@@ -15,16 +15,16 @@
         <li (click)="wdp()" *ngIf="toDisplay1" class="text">Webiste Clicks</li>
         <li (click)="pcdp()" *ngIf="toDisplay1" class="text">Profile Clicks</li>
         <li (click)="toggleData()" class="text"><img class="sales_icon" src="../assets/images/sales.png" alt="sales_img"><div class="pages-and-sales-div">Suscription</div><div *ngIf="!toDisplay" class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></div><div *ngIf="toDisplay" class="angle-up"><i class="fa fa-angle-up" aria-hidden="true"></i></div></li>
-        <li *ngIf="toDisplay" class="text">Upgarde</li>
+        <li *ngIf="toDisplay" class="text" (click)="in_development()">Upgarde</li>
         <li *ngIf="toDisplay" (click)="cancel_sub()" class="text">Cancel</li>
-        <li class="text"><img class="inbox_icon" src="../assets/images/inbox-in.png" alt="inbox_img"><div class="mess-div">Results captured</div></li>
+        <li class="text" (click)="captureScreen()"><img class="inbox_icon" src="../assets/images/inbox-in.png" alt="inbox_img"><div class="mess-div">Capture Screen</div></li>
         <li class="text"><img class="lock_icon" src="../assets/images/lock.png" alt="lock_img"><div class="auth-div">Privacy Policy</div></li>
         <hr />
         <li class="text"><img class="docs_icon" src="../assets/images/clipboard-list.png" alt="docs_img"><div class="docs-div">Terms and Conditions</div></li>
         <li class="text"><img class="components_icon" src="../assets/images/collection.png" alt="components_img"><div class="comp-div">Contact Us</div></li>
         <li (click)="toggleData3()" class="text"><img class="support_icon" src="../assets/images/support.png" alt="support_img"><div class="help-div">Settings</div><div *ngIf="!toDisplay3" class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></div><div *ngIf="toDisplay3" class="angle-up"><i class="fa fa-angle-up" aria-hidden="true"></i></div></li>
-        <li *ngIf="toDisplay3" class="text" (click)="in_development()">Update Profile</li>
-        <li *ngIf="toDisplay3" class="text">Change card</li>
+        <li *ngIf="toDisplay3" class="text" (click)="profile()">Update Profile</li>
+        <!--<li *ngIf="toDisplay3" class="text" (click)="update_card()">Change card</li>-->
         <li (click)="switch_account()" class="text"><img class="support_icon" src="../assets/images/support.png" alt="support_img"><div class="help-div">Switch Ig Account</div><div *ngIf="!toDisplay4" class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></div><div *ngIf="toDisplay4" class="angle-up"><i class="fa fa-angle-up" aria-hidden="true"></i></div></li>
         <li *ngIf="toDisplay4" class="text"><span (click)="sa_1()">{{switch_account_1}}</span><i (click)="ea_1()" class='fa fa-edit'></i></li>
         <li *ngIf="toDisplay4" class="text"><span (click)="sa_2()">{{switch_account_2}}</span><i (click)="ea_2()" class='fa fa-edit'></i></li>

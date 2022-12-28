@@ -37,9 +37,9 @@ export class LoginWithFacebookComponent implements OnInit {
     if(!localStorage.getItem("email")){
       this.router.navigate(['/signup']);
     }
-    else if(!localStorage.getItem("fb_app_id")){
+    /*else if(!localStorage.getItem("fb_app_id")){
       this.router.navigate(['/fb_app_id']);  
-    }
+    }*/
     else{
       if(localStorage.getItem("access_token")){
         //this.router.navigate(['/dashboard']);  

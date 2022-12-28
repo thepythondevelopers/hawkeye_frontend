@@ -332,14 +332,14 @@ export class DashboardComponent implements OnInit{
       this.router.navigate(['/signup']);
     }
     else{
-      /*if(!localStorage.getItem("auth_token")){
-        this.router.navigate(['/login-with-facebook']);
-      }*/
-      if(!localStorage.getItem("fb_app_id")){
+      /*if(!localStorage.getItem("fb_app_id")){
         this.router.navigate(['/fb_app_id']);
+      }*/
+      this.access_token=localStorage.getItem("access_token");
+      if(!this.access_token){
+        this.router.navigate(['/login-with-facebook']);
       }
     }
-    this.access_token=localStorage.getItem("access_token");
     this.ig_id=localStorage.getItem("ig_id");
     this.reach_week();
     this.imp_week();
@@ -1337,6 +1337,7 @@ export class DashboardComponent implements OnInit{
         }
       })
     }
+
     logout(){
       localStorage.clear();
       sessionStorage.clear();

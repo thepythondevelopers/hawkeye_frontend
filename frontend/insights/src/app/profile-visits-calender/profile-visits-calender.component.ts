@@ -1,8 +1,11 @@
 import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { NgToastService } from 'ng-angular-popup';
 import { BaseChartDirective } from 'ng2-charts';
+import { environment } from 'src/environments/environment';
 import { ProfilevisitsService } from '../profilevisits.service';
 
 @Component({
@@ -27,9 +30,22 @@ export class ProfileVisitsCalenderComponent implements OnInit {
   pv_p: any;
   pv_percentage_change: any;
   pv: any;
-  constructor(private toast:NgToastService,private prfvisits : ProfilevisitsService,private datepipe: DatePipe) {
+  constructor(private http:HttpClient,private router : Router,private toast:NgToastService,private prfvisits : ProfilevisitsService,private datepipe: DatePipe) {
     this.access_token=localStorage.getItem("access_token");
     this.ig_id=localStorage.getItem("ig_id");
+    if(!this.access_token){
+      this.router.navigate(['/login-with-facebook']);
+    }
+    else{
+      this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+        let my_plan = Object.entries(response)[0][1];
+        console.log("My plan=",my_plan);
+        if(my_plan==="Null" || my_plan==="Freelancer"){
+          this.router.navigate(['/dashboard']);
+          this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+        }
+      })
+    }
    }
 
   ngOnInit(): void {

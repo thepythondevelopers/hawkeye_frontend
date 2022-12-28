@@ -1,6 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { FollowersDetailsService } from '../followers-details.service';
+import {NgToastService} from 'ng-angular-popup'
+
 @Component({
   selector: 'app-follower-details-insights',
   templateUrl: './follower-details-insights.component.html',
@@ -16,10 +20,23 @@ export class FollowerDetailsInsightsComponent implements OnInit {
   gender_age: boolean = false;
   country: boolean = false;
   city: boolean = false;
-  constructor(private fd_service: FollowersDetailsService,private route: ActivatedRoute) {
+  constructor(private toast:NgToastService,private http:HttpClient,private router : Router,private fd_service: FollowersDetailsService,private route: ActivatedRoute) {
     this.access_token = localStorage.getItem("access_token");
     this.ig_id = localStorage.getItem("ig_id");
     this.insights()
+    if(!this.access_token){
+      this.router.navigate(['/login-with-facebook']);
+    }
+    else{
+      this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+        let my_plan = Object.entries(response)[0][1];
+        console.log("My plan=",my_plan);
+        if(my_plan==="Null" || my_plan==="Freelancer"){
+          this.router.navigate(['/dashboard']);
+          this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+        }
+      })
+    }
    }
 
   ngOnInit(): void {

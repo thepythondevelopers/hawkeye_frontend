@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { CheckUserPlanService } from '../check-user-plan.service';
+import { GetCustIdService } from '../get-cust-id.service';
 import { GetInstaAccountsService } from '../get-insta-accounts.service';
 import { ModalserviceService } from '../modalservice.service';
+import { UpdateCardService } from '../update-card.service';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-sidebar',
@@ -34,7 +37,7 @@ export class SidebarComponent implements OnInit {
   toDisplaymodal: any=false;
   toDisplaymodal_sub: any=false;
 
-  constructor(private modaldata:ModalserviceService,private gia: GetInstaAccountsService,private toast:NgToastService,private cup: CheckUserPlanService,private router: Router) {}
+  constructor(private cust_id:GetCustIdService,private uc:UpdateCardService,private modaldata:ModalserviceService,private gia: GetInstaAccountsService,private toast:NgToastService,private cup: CheckUserPlanService,private router: Router) {}
 
   ngOnInit(): void {
   }
@@ -192,5 +195,26 @@ export class SidebarComponent implements OnInit {
   }
   in_development(){
     this.toast.info({detail:"Info Message",summary:"This plan is under devlopment",duration:5000});
+  }
+  profile(){
+    this.router.navigate(['/profile']);
+  }
+  captureScreen(){
+    html2canvas(document.body).then(function(canvas){
+      var generatedImage=canvas.toDataURL("image/png").replace("image/png","image/octet-stream");
+      window.location.href=generatedImage;
+    });
+  }
+  update_card(){
+    this.cust_id.get_cust_id(localStorage.getItem("email")).subscribe((response)=>{
+      console.log("reponse from get customer id::",response);
+      /*this.uc.list_card().subscribe((res)=>{
+        console.log("response from list card::",res);
+        this.uc.update_card().subscribe((resp)=>{
+          console.log("response from update card::",resp);
+        })
+      })*/
+    })
+    
   }
 }
