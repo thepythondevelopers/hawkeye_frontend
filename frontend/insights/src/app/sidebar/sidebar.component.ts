@@ -62,10 +62,8 @@ export class SidebarComponent implements OnInit {
       this.ig_id_5=Object.entries(res)[0][1].ig_id_5;
     })
     /*let email=localStorage.getItem("email");
-    let fb_app_id=localStorage.getItem("fb_app_id");
     localStorage.clear();
     localStorage.setItem("email",<any>email);
-    localStorage.setItem("fb_app_id",<any>fb_app_id);
     alert("To switch between ig account just change the connected ig account to your fb page and then connect with facebook");
     window.location.href="https://localhost:4200/login-with-facebook";*/
   }

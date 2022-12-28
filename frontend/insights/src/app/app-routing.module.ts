@@ -25,7 +25,6 @@ import { FbIdComponent } from './fb-id/fb-id.component';
 
 const routes: Routes = [
   {path : 'dashboard', component : DashboardComponent},
-  //{path : 'fb_app_id', component : FbIdComponent},
   {path : 'followers-details/:id', component : FollowerDetailsInsightsComponent},
   {path : 'profile', component : ProfileComponent},
   {path : 'charts', component : TestComponent},

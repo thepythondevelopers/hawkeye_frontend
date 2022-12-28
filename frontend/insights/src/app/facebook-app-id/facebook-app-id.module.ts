@@ -17,7 +17,6 @@ import { environment } from 'src/environments/environment';
         providers: [
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            //provider: new FacebookLoginProvider(<any>localStorage.getItem('fb_app_id'))
             provider: new FacebookLoginProvider('643056750524188')
           }
         ],
@@ -29,5 +28,5 @@ import { environment } from 'src/environments/environment';
   ]
 })
 export class FacebookAppIdModule {
-  constructor(){console.log("env="+environment.fb_app_id)}
+  constructor(){}
  }

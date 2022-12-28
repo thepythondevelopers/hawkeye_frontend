@@ -75,24 +75,6 @@ import { FacebookAppIdModule } from './facebook-app-id/facebook-app-id.module';
     AvatarModule,
     FacebookAppIdModule
   ],
-  /*providers: [
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider(environment.fb_app_id)
-            //provider: new FacebookLoginProvider('643056750524188')
-          }
-        ],
-        onError: (err) => {
-          console.error(err);
-        }
-      } as SocialAuthServiceConfig,
-    }
-  ],*/
   bootstrap: [AppComponent]
 })
 export class AppModule { }

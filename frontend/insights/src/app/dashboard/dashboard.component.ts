@@ -332,9 +332,6 @@ export class DashboardComponent implements OnInit{
       this.router.navigate(['/signup']);
     }
     else{
-      /*if(!localStorage.getItem("fb_app_id")){
-        this.router.navigate(['/fb_app_id']);
-      }*/
       this.access_token=localStorage.getItem("access_token");
       if(!this.access_token){
         this.router.navigate(['/login-with-facebook']);

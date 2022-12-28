@@ -8,7 +8,6 @@ export const environment = {
   baseURL: 'https://hawkeye-api.pamsar.com',
   env_var_tp_saved: 0,
   env_var_tp_reach: 0,
-  fb_app_id: '643056750524188'
 };
 
 /*
