@@ -1342,5 +1342,4 @@ export class DashboardComponent implements OnInit{
       this.router.navigate(['/signup']);
     }
 }
-/*work fine*/
 
