@@ -32,7 +32,6 @@ import { SuccessComponent } from './success/success.component';
 import { CancelComponent } from './cancel/cancel.component';
 import { NgToastModule } from 'ng-angular-popup';
 import { ProfileComponent } from './profile/profile.component';
-import { FbIdComponent } from './fb-id/fb-id.component';
 import { environment } from 'src/environments/environment';
 import { FacebookAppIdModule } from './facebook-app-id/facebook-app-id.module';
 
@@ -61,8 +60,7 @@ import { FacebookAppIdModule } from './facebook-app-id/facebook-app-id.module';
     NavbarComponent,
     SuccessComponent,
     CancelComponent,
-    ProfileComponent,
-    FbIdComponent
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

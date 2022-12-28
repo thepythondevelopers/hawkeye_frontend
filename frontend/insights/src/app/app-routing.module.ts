@@ -21,7 +21,6 @@ import { SuccessComponent } from './success/success.component';
 import { TestComponent } from './test/test.component';
 import { WebsiteClicksInsightsComponent } from './website-clicks-insights/website-clicks-insights.component';
 import { ProfileComponent } from './profile/profile.component';
-import { FbIdComponent } from './fb-id/fb-id.component';
 
 const routes: Routes = [
   {path : 'dashboard', component : DashboardComponent},
