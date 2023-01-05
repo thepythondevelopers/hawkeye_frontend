@@ -7,6 +7,7 @@ import {environment} from '../../environments/environment';
 import { ListSubscriptionService } from '../list-subscription.service';
 import { SaveSubscriptionService } from '../save-subscription.service';
 import { SaveCustIdService } from '../save-cust-id.service';
+import { SendEmailService } from '../send-email.service';
 
 @Component({
   selector: 'app-success',
@@ -15,7 +16,7 @@ import { SaveCustIdService } from '../save-cust-id.service';
 })
 export class SuccessComponent implements OnInit {
 
-  constructor(private sci:SaveCustIdService,private sub_id:SaveSubscriptionService,private ls:ListSubscriptionService,private http : HttpClient,private router : Router, private payment_list:PaymentListService) {
+  constructor(private se:SendEmailService,private sci:SaveCustIdService,private sub_id:SaveSubscriptionService,private ls:ListSubscriptionService,private http : HttpClient,private router : Router, private payment_list:PaymentListService) {
     this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
       let my_plan = Object.entries(response)[0][1];
       console.log("My plan=",my_plan);
@@ -46,6 +47,9 @@ export class SuccessComponent implements OnInit {
             this.sci.save_cust_id(localStorage.getItem("email"),customer).subscribe((res_data)=>{
               console.log("reponse from save cust_id::",res_data);
             })
+          this.se.send_email(localStorage.getItem("email"),"purchased").subscribe((email_res)=>{
+            console.log("response from mail::",email_res);
+          })
           }
           let date=new Date();
           let latest_date_in_unix=Math.floor(date.getTime() / 1000);
@@ -70,6 +74,6 @@ export class SuccessComponent implements OnInit {
   ngOnInit(): void {
   }
   connect_to_fb(){
-    this.router.navigate(['/login-with-facebook']); 
+    this.router.navigate(['/pricing']); 
   }
 }

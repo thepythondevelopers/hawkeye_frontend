@@ -439,6 +439,9 @@ export class DashboardComponent implements OnInit{
     this.toDisplay_reach_period_30=false;
     this.toDisplay_reach_period_week=true;
     this.dashboardservice.reach_week(this.access_token,this.ig_id).subscribe((res)=>{
+      if(!res){
+        this.toast.error({detail:"Failure Message",summary:"access token expired",duration:5000});
+      }
       console.log("week",res);
       let i=0;
       this.Reach_week=0;

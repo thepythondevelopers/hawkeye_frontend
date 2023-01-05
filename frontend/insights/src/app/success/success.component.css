@@ -23,6 +23,7 @@ font-weight: 700;
 font-size: 42px;
 line-height: 52px;
 color: #000000;
+text-align: center;
 }
 button{
     display: flex;
@@ -89,6 +90,7 @@ p{
     line-height: 25px;
     text-transform: capitalize;
     color: #555555;
+    text-align: center;
 }
 .tick_img{
     width: 76.66px;

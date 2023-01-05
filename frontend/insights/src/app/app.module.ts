@@ -34,6 +34,8 @@ import { NgToastModule } from 'ng-angular-popup';
 import { ProfileComponent } from './profile/profile.component';
 import { environment } from 'src/environments/environment';
 import { FacebookAppIdModule } from './facebook-app-id/facebook-app-id.module';
+import { NewPasswordComponent } from './new-password/new-password.component';
+import { OtpPageComponent } from './otp-page/otp-page.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { FacebookAppIdModule } from './facebook-app-id/facebook-app-id.module';
     NavbarComponent,
     SuccessComponent,
     CancelComponent,
-    ProfileComponent
+    ProfileComponent,
+    NewPasswordComponent,
+    OtpPageComponent
   ],
   imports: [
     BrowserModule,

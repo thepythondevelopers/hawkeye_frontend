@@ -4,13 +4,13 @@
         <div class="form_box">
             <h2 class="heading1">Sign In</h2>
             <form class="signin_form" #login="ngForm" (ngSubmit)="logindata(login.value)">
-            <input class="input" name="email" required #email="ngModel" type="email" email placeholder="Your Email" ngModel />
+            <input id="email" class="input" name="email" required #email="ngModel" type="email" email placeholder="Your Email" [(ngModel)]="Formdata.email"/>
             <br />
             <br />
-            <input class="input" name="password" required #password="ngModel" type="password" placeholder="Password" ngModel />
+            <input id="password" class="input" name="password" required #password="ngModel" type="password" placeholder="Password" [(ngModel)]="Formdata.password" />
             <br />
             <br />
-            <input class="checkbox" type="checkbox" id="remember_me" name="remember_me" value="remember_me">
+            <input class="checkbox" type="checkbox" id="remember_me" name="remember_me" value="remember_me" (click)="checkbox()">
             <label for="remember_me">Remember Me</label><br>
             <a href="/forgot_password" class="fp">Forgot Password?</a>
             <button class="login_btn" type="submit">Login</button>

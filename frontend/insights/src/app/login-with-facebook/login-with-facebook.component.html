@@ -5,7 +5,10 @@
             <div *ngIf="displayerrors" class="error">Warning* {{errors}}</div>
             <h2 class="heading1">Connect Through Facebook</h2>
             <img class="connect-to-fb-btn" src="../assets/images/facebook.png" (click)="signInWithFB()" />
-            <button (click)="logout()">LOGOUT</button>
+            <div class="buttons_flex">
+                <button class="button" (click)="logout()">LOGOUT</button>
+                <button class="gtpp" (click)="gtpp()">GO TO PRICING PAGE</button>
+            </div>
         </div>
         <img class="login_img background-login-img" src="../assets/images/connect.png" alt="login_img">
         <p class="copyright">2022 © All Rights Reserved. Terms of Service</p>

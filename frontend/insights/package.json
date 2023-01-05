@@ -27,6 +27,7 @@
     "angularx-social-login": "^4.1.0",
     "bootstrap": "^5.2.3",
     "chart.js": "^3.9.1",
+    "crypto-js": "^4.1.1",
     "font-awesome": "^4.7.0",
     "html2canvas": "^1.4.1",
     "ng-angular-popup": "^0.2.0",
@@ -40,9 +41,10 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.2.6",
+    "@angular-devkit/build-angular": "^14.2.10",
     "@angular/cli": "~14.2.6",
     "@angular/compiler-cli": "^14.2.0",
+    "@types/crypto-js": "^4.1.1",
     "@types/jasmine": "~4.0.0",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",

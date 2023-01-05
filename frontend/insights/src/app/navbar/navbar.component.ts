@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit {
   }
   logout(){
     localStorage.clear();
-    this.cookieService.deleteAll();
+    //this.cookieService.deleteAll();
     this.router.navigate(['/signup']);
   }
   profile(){

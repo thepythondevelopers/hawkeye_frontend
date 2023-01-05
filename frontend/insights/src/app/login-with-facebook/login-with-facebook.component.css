@@ -52,12 +52,15 @@ width: 200px;
     background: linear-gradient(90deg, #613DC1 0%, #858AE3 100%);
     border-radius: 5px;
 }
-button{
+.buttons_flex{
+    display: flex;
+}
+.button{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 6px 30px;
+    padding: 6px 0px;
     color: #FFFFFF;
     border: none;
     margin: 40px 0px 0px 50px;
@@ -65,6 +68,21 @@ button{
     width: 144px;
     height: 34px;
     background: linear-gradient(90deg, #613DC1 0%, #858AE3 100%);
+    border-radius: 5px;
+}
+.gtpp{
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 0px;
+    color: #FFFFFF;
+    border: none;
+    margin: 40px 0px 0px 95px;
+    gap: 10px;
+    width: 144px;
+    font-size: 10px;
+    height: 34px;
+    background: linear-gradient(90deg, #f50000 0%, #ff0000 100%);
     border-radius: 5px;
 }
 .background-login-img{

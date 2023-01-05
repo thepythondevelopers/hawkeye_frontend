@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Router} from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import {environment} from '../environments/environment';
+import { CreateOtpCollectionService } from './create-otp-collection.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignupService {
 
-  constructor(private toast:NgToastService,private http : HttpClient, private router: Router) { }
+  constructor(private coc:CreateOtpCollectionService,private toast:NgToastService,private http : HttpClient, private router: Router) { }
   signup(req:any){
     if(req.fname==="")
     this.toast.error({detail:"Failure Message",summary:"First name cannot be empty",duration:5000});
@@ -27,16 +28,19 @@ export class SignupService {
     {
       this.toast.error({detail:"Failure Message",summary:"Password and confirm password does'nt match",duration:5000});
     }
-    else if(req.password.length<6)
-    this.toast.error({detail:"Failure Message",summary:"Password must be atleast 6 characters long",duration:5000});
-    else if(req.password.length>8)
-    this.toast.error({detail:"Failure Message",summary:"Password cannot be more than 8 characters long",duration:5000});
+    else if(req.password.length<8)
+    this.toast.error({detail:"Failure Message",summary:"Password must be atleast 8 characters long",duration:5000});
+    else if(req.password.length>15)
+    this.toast.error({detail:"Failure Message",summary:"Password cannot be more than 15 characters long",duration:5000});
     else{
       console.log('request from signup',req);
     this.http.post(environment.baseURL+'/register',(req)).subscribe((res:any)=>{
       if(res.msg==="registration successfull"){
         this.toast.success({detail:"Success Message",summary:res.msg,duration:5000});
         this.router.navigate(['/login']);
+        this.coc.create_otp_collection(req.email).subscribe((response:any)=>{
+          console.log("response from create otp collection",response);
+        })
       }
       else if(res.msg==="Email already exists"){
         this.toast.error({detail:"Failure Message",summary:res.msg,duration:5000});

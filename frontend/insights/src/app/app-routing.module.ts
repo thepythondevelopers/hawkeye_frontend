@@ -21,6 +21,8 @@ import { SuccessComponent } from './success/success.component';
 import { TestComponent } from './test/test.component';
 import { WebsiteClicksInsightsComponent } from './website-clicks-insights/website-clicks-insights.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
+import { OtpPageComponent } from './otp-page/otp-page.component';
 
 const routes: Routes = [
   {path : 'dashboard', component : DashboardComponent},
@@ -42,6 +44,8 @@ const routes: Routes = [
   {path : 'reach', component : ReachComponent},
   {path : 'notfound', component : NotfoundComponent},
   {path : 'login-with-facebook', component : LoginWithFacebookComponent},
+  {path : 'new_password', component : NewPasswordComponent},
+  {path : 'one_time_password', component : OtpPageComponent},
   {path : '', redirectTo : '/signup', pathMatch : 'full'},
   {path : '**', redirectTo : '/notfound', pathMatch : 'full'}
 ];

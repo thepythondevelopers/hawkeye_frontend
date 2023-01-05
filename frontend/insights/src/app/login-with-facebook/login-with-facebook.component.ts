@@ -43,6 +43,7 @@ export class LoginWithFacebookComponent implements OnInit {
       }
     }
    }
+   
 
    ngOnInit() {
     this.authService.authState.subscribe((user) => {
@@ -65,16 +66,25 @@ export class LoginWithFacebookComponent implements OnInit {
     this.http.get(url).subscribe((res:any)=>{
         console.log("data in response=",res.data);
         for(let i=0;i<res.data.length;i++){
-          this.access_token=res.data[i].access_token;
-          this.ig_id=res.data[i].instagram_business_account.id;
+          if(res.data[i].access_token){
+            if(res.data[i].instagram_business_account){
+              this.access_token=res.data[i].access_token;
+              this.ig_id=res.data[i].instagram_business_account.id;
+              localStorage.setItem("access_token",this.access_token);
+              localStorage.setItem("ig_id",this.ig_id);
+            }
+          }
           this.sno=i+1;
           this.fia.fill_insta_accounts(localStorage.getItem("email"),this.access_token,this.ig_id,this.sno).subscribe((response)=>{
             console.log("repsonse from fill accounts::",response);
           })
         }
-        localStorage.setItem("access_token",res.data[0].access_token);
-        localStorage.setItem("ig_id",res.data[0].instagram_business_account.id);
-        this.router.navigate(['/dashboard']);
+        if(localStorage.getItem("ig_id")){
+          this.router.navigate(['/dashboard']);
+        }
+        else{
+          this.toast.error({detail:"Failure Message",summary:"Please select atleast one ig account and fb page that are connected to each other",duration:5000});
+        }
     },error => {
       this.displayerrors=true;
       this.errors = error;
@@ -86,6 +96,11 @@ export class LoginWithFacebookComponent implements OnInit {
     document.cookie = "c_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     this.authService.signOut();
   }
+
+  gtpp(){
+    this.router.navigate(['/pricing']);
+  }
+
   logout(){
     localStorage.clear();
     this.router.navigate(['/signup']);

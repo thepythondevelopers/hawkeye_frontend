@@ -7,6 +7,9 @@ import { GetInstaAccountsService } from '../get-insta-accounts.service';
 import { ModalserviceService } from '../modalservice.service';
 import { UpdateCardService } from '../update-card.service';
 import html2canvas from 'html2canvas';
+import { SendEmailService } from '../send-email.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -37,7 +40,7 @@ export class SidebarComponent implements OnInit {
   toDisplaymodal: any=false;
   toDisplaymodal_sub: any=false;
 
-  constructor(private cust_id:GetCustIdService,private uc:UpdateCardService,private modaldata:ModalserviceService,private gia: GetInstaAccountsService,private toast:NgToastService,private cup: CheckUserPlanService,private router: Router) {}
+  constructor(private http:HttpClient,private se:SendEmailService,private cust_id:GetCustIdService,private uc:UpdateCardService,private modaldata:ModalserviceService,private gia: GetInstaAccountsService,private toast:NgToastService,private cup: CheckUserPlanService,private router: Router) {}
 
   ngOnInit(): void {
   }
@@ -117,36 +120,71 @@ export class SidebarComponent implements OnInit {
     this.router.navigate(['followers-details/gender_age'])
   }
   sa_1(){
-    localStorage.setItem("access_token",this.access_token_1);
-    localStorage.setItem("ig_id",this.ig_id_1);
-    window.location.reload();
+    if(this.access_token_1 && this.ig_id_1){
+      localStorage.setItem("access_token",this.access_token_1);
+      localStorage.setItem("ig_id",this.ig_id_1);
+      window.location.reload();
+    }
+    else{
+      this.toast.error({detail:"Failure Message",summary:"No ig account attached to it.",duration:5000});
+    }
   }
   sa_2(){
-    localStorage.setItem("access_token",this.access_token_2);
-    localStorage.setItem("ig_id",this.ig_id_2);
-    window.location.reload();
+    if(this.access_token_2 && this.ig_id_2){
+      localStorage.setItem("access_token",this.access_token_2);
+      localStorage.setItem("ig_id",this.ig_id_2);
+      window.location.reload();
+    }
+    else{
+      this.toast.error({detail:"Failure Message",summary:"No ig account attached to it.",duration:5000});
+    }
   }
   sa_3(){
-    localStorage.setItem("access_token",this.access_token_3);
-    localStorage.setItem("ig_id",this.ig_id_3);
-    window.location.reload();
+    if(this.access_token_3 && this.ig_id_3){
+      localStorage.setItem("access_token",this.access_token_3);
+      localStorage.setItem("ig_id",this.ig_id_3);
+      window.location.reload();
+    }
+    else{
+      this.toast.error({detail:"Failure Message",summary:"No ig account attached to it.",duration:5000});
+    }
   }
   sa_4(){
-    localStorage.setItem("access_token",this.access_token_4);
-    localStorage.setItem("ig_id",this.ig_id_4);
-    window.location.reload();
+    if(this.access_token_4 && this.ig_id_4){
+      localStorage.setItem("access_token",this.access_token_4);
+      localStorage.setItem("ig_id",this.ig_id_4);
+      window.location.reload();
+    }
+    else{
+      this.toast.error({detail:"Failure Message",summary:"No ig account attached to it.",duration:5000});
+    }
   }
   sa_5(){
-    localStorage.setItem("access_token",this.access_token_5);
-    localStorage.setItem("ig_id",this.ig_id_5);
-    window.location.reload();
+    if(this.access_token_5 && this.ig_id_5){
+      localStorage.setItem("access_token",this.access_token_5);
+      localStorage.setItem("ig_id",this.ig_id_5);
+      window.location.reload();
+    }
+    else{
+      this.toast.error({detail:"Failure Message",summary:"No ig account attached to it.",duration:5000});
+    }
   }
   close_modal(){
     this.toDisplaymodal=false;
     this.toDisplaymodal_sub=false;
   }
   cancel_sub(){
-    this.toDisplaymodal_sub=true;
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==='Null'){
+        this.toDisplaymodal_sub=false;
+        this.toast.error({detail:"Failure Message",summary:"You have'nt purchased any plan yet",duration:5000});
+      }
+      else{
+        this.toDisplaymodal_sub=true;
+      }
+    })
   }
   ea_1(){
     this.toDisplaymodal=true;
@@ -183,10 +221,14 @@ export class SidebarComponent implements OnInit {
       this.modaldata.cancel_subscription(localStorage.getItem("email")).subscribe((res:any)=>{
         if(Object.entries(res)[0][1]==="Subscription cancelled successfully"){
           this.toast.success({detail:"Success Message",summary:"Subscription cancelled successfully",duration:5000});
+          this.toDisplaymodal_sub=false;
           let email=localStorage.getItem("email");
           localStorage.clear();
           localStorage.setItem("email",<any>email);
           this.router.navigate(['/pricing']);
+          this.se.send_email(localStorage.getItem("email"),"cancel").subscribe((res)=>{
+            console.log("You have Successfully cancelled your suscription");
+          })
 
         }
       })
