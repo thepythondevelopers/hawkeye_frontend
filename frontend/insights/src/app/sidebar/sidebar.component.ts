@@ -114,7 +114,7 @@ export class SidebarComponent implements OnInit {
       let my_plan = Object.entries(response)[0][1];
       console.log("My plan=",my_plan);
       if(my_plan==="Null" || my_plan==="Freelancer"){
-        this.router.navigate(['/dashboard']);
+        //this.router.navigate(['/dashboard']);
         this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
       }
       else{
@@ -127,7 +127,7 @@ export class SidebarComponent implements OnInit {
       let my_plan = Object.entries(response)[0][1];
       console.log("My plan=",my_plan);
       if(my_plan==="Null" || my_plan==="Freelancer"){
-        this.router.navigate(['/dashboard']);
+        //this.router.navigate(['/dashboard']);
         this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
       }
       else{
@@ -140,7 +140,7 @@ export class SidebarComponent implements OnInit {
       let my_plan = Object.entries(response)[0][1];
       console.log("My plan=",my_plan);
       if(my_plan==="Null" || my_plan==="Freelancer"){
-        this.router.navigate(['/dashboard']);
+        //this.router.navigate(['/dashboard']);
         this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
       }
       else{
@@ -153,7 +153,7 @@ export class SidebarComponent implements OnInit {
       let my_plan = Object.entries(response)[0][1];
       console.log("My plan=",my_plan);
       if(my_plan==="Null" || my_plan==="Freelancer"){
-        this.router.navigate(['/dashboard']);
+        //this.router.navigate(['/dashboard']);
         this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
       }
       else{
@@ -166,7 +166,7 @@ export class SidebarComponent implements OnInit {
       let my_plan = Object.entries(response)[0][1];
       console.log("My plan=",my_plan);
       if(my_plan==="Null" || my_plan==="Freelancer"){
-        this.router.navigate(['/dashboard']);
+        //this.router.navigate(['/dashboard']);
         this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
       }
       else{
@@ -179,7 +179,7 @@ export class SidebarComponent implements OnInit {
       let my_plan = Object.entries(response)[0][1];
       console.log("My plan=",my_plan);
       if(my_plan==="Null" || my_plan==="Freelancer"){
-        this.router.navigate(['/dashboard']);
+        //this.router.navigate(['/dashboard']);
         this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
       }
       else{
@@ -192,7 +192,7 @@ export class SidebarComponent implements OnInit {
       let my_plan = Object.entries(response)[0][1];
       console.log("My plan=",my_plan);
       if(my_plan==="Null" || my_plan==="Freelancer"){
-        this.router.navigate(['/dashboard']);
+        //this.router.navigate(['/dashboard']);
         this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
       }
       else{
@@ -205,7 +205,7 @@ export class SidebarComponent implements OnInit {
       let my_plan = Object.entries(response)[0][1];
       console.log("My plan=",my_plan);
       if(my_plan==="Null" || my_plan==="Freelancer"){
-        this.router.navigate(['/dashboard']);
+        //this.router.navigate(['/dashboard']);
         this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
       }
       else{
