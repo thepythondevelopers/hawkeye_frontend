@@ -25,21 +25,21 @@
             <input class="input" name="email" required #email="ngModel" type="email" email placeholder="Your Email" ngModel/>
            <br />
            <br />
-            <input class="input" name="phno" required #email="ngModel" type="text" placeholder="Phone Number" ngModel/>
+            <input class="input" name="phno" required #phno="ngModel" type="text" placeholder="Phone Number" ngModel/>
             <br />
             <br />
-            <input class="input" name="password" required #password="ngModel" type="password" placeholder="Password" ngModel/>
+            <input class="input" name="password" required #password="ngModel" [type]="!eye ? 'password' : 'text'" placeholder="Password" ngModel/><i *ngIf="!eye" (click)='eyeone()' class="closeeye fa fa-eye-slash" aria-hidden="true"></i><i *ngIf="eye" (click)="eyeone()" class="closeeye fa fa-eye" aria-hidden="true"></i>
             <br />
             <br />
-            <input class="input" name="confirm_password" required #password="ngModel" type="password" placeholder="Confirm Password" ngModel/>
+            <input class="input" name="confirm_password" required #password="ngModel" [type]="!eye2 ? 'password' : 'text'" placeholder="Confirm Password" ngModel/><i *ngIf="!eye2" (click)='eyetwo()' class="closeeye2 fa fa-eye-slash" aria-hidden="true"></i><i *ngIf="eye2" (click)="eyetwo()" class="closeeye2 fa fa-eye" aria-hidden="true"></i>
             <br />
-            <input class="checkbox" type="checkbox" id="remember_me" name="remember_me" value="remember_me">
+            <input class="hand checkbox" type="checkbox" id="remember_me" name="remember_me" value="remember_me" (click)="checkbox()">
             <label for="remember_me">Term And Conditions</label><br>
-            <button class="signup_btn" type="submit">Submit</button>
+            <button class="hand signup_btn" type="submit">Submit</button>
             </form>
         </div>
         <img class="login_img" src="../assets/images/login.png" alt="login_img">
         <div class="text1">Already have an account? Please<a href="/login"> Sign In Here</a></div>
-        <p class="copyright">2022 © All Rights Reserved. Terms of Service</p>
+        <p class="copyright">2023 © All Rights Reserved. Terms of Service</p>
     </div>
 </div>

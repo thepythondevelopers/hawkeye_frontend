@@ -398,16 +398,56 @@ export class DashboardComponent implements OnInit{
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID, fbLoginOptions);
   }
   wbcs_calender(){
-    this.router.navigate(['wbcs/calender']);
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['wbcs/calender']);
+      }
+    })
   }
   reach_calender(){
-    this.router.navigate(['reach/calender']);
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['reach/calender']);
+      }
+    })
   }
   imp_calender(){
-    this.router.navigate(['impression/calender']);
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['impression/calender']);
+      }
+    })
   }
   newpost_calender(){
-    this.router.navigate(['newpost/calender']);
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['newpost/calender']);
+      }
+    })
   }
   reach30(){
     this.toDisplay_reach_period=false;
@@ -1060,6 +1100,8 @@ export class DashboardComponent implements OnInit{
       for(i=0;i<len;i++){
         this.total_likes= this.total_likes + Object.entries(res)[0][1][i].like_count;
       }
+      },error=>{
+        this.toast.error({detail:"Failure Message",summary:error.error.error.message.substring(0,29),duration:5000});
       });
       this.lscs_service.comment(this.access_token,this.ig_id).subscribe((res)=>{
         console.log("comment data=",res);

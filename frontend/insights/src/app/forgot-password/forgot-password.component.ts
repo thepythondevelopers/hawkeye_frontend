@@ -26,16 +26,21 @@ export class ForgotPasswordComponent implements OnInit {
     {
       this.forgot.Forgot(data.email,(Math.round(100000*Math.random())).toString()).subscribe((res:any)=>{
       console.log("response from forgot password::",res);
-      if(res.msg==='Email Sent Successfully'){
-        this.router.navigate(['/one_time_password']);
-        localStorage.setItem("recover_password_of",data.email);
-        let timerId =setInterval(() => this.coc.expire_otp(data.email).subscribe((response:any)=>{
-          console.log("response from expire otp::",response);
-        }), 60000);
-        setTimeout(() => { clearInterval(timerId);}, 65000);
+      if(res.error){
+        this.toast.error({detail:"Failure Message",summary:res.error,duration:5000});
       }
       else{
-        this.toast.error({detail:"Failure Message",summary:res.msg,duration:5000});
+        if(res.msg==='Email Sent Successfully'){
+          this.router.navigate(['/one_time_password']);
+          localStorage.setItem("recover_password_of",data.email);
+          let timerId =setInterval(() => this.coc.expire_otp(data.email).subscribe((response:any)=>{
+            console.log("response from expire otp::",response);
+          }), 60000);
+          setTimeout(() => { clearInterval(timerId);}, 65000);
+        }
+        else{
+          this.toast.error({detail:"Failure Message",summary:res.msg,duration:5000});
+        }
       }
       });
     }

@@ -12,4 +12,7 @@ export class GetInstaAccountsService {
   accounts(data:any){
     return this.http.post(environment.baseURL+'/get_insta_accounts',{"email":data});
   }
+  check_allocation(data:any){
+    return this.http.post(environment.baseURL+'/check_allocation',{"email":data});
+  }
 }

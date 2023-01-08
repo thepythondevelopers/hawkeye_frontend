@@ -13,6 +13,7 @@ var CryptoJS = require("crypto-js");
 })
 export class LoginComponent implements OnInit {
   cb: boolean=false;
+  eye: boolean=false;
   conversionEncryptOutput: any;
   decPassword:any;  
   conversionDecryptOutput:any;
@@ -60,6 +61,9 @@ export class LoginComponent implements OnInit {
   }
   checkbox(){
     this.cb=!this.cb;
+  }
+  eyeone(){
+    this.eye=!this.eye;
   }
   ngOnInit(): void {
   }

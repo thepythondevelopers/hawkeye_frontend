@@ -25,7 +25,9 @@ export class ProfileComponent implements OnInit {
   location: any;
   email: any;
   images: any;
+  file: any;
   constructor(private ui: UpdateProfileImageService,private ud:UserDetailsService,private up: UpdateProfileService,private toast:NgToastService,private router: Router,private pis: ProfileImageService) {
+    
     this.pis.get_profile_image().subscribe((res)=>{
       console.log("response form set profile image=",Object.entries(res)[0][1])
       if(Object.entries(res)[0][0]==="updated_profile_image"){
@@ -65,8 +67,11 @@ export class ProfileComponent implements OnInit {
 
   selectImage(event:any){
     if(event.target.files.length>0){
-      const file=event.target.files[0];
-      this.images=file;
+       this.file=event.target.files[0];
+      this.images=this.file;
+      console.log("type of image file::",this.file.type)
+
+
     }
   }
 
@@ -94,27 +99,37 @@ export class ProfileComponent implements OnInit {
       this.toast.error({detail:"Failure Message",summary:"About me cannot be left empty",duration:5000});
     }
     else{
-      this.up.update_profile(data).subscribe((res:any)=>{
-        console.log("response from update profile=",res);
-        if(res.msg==="Profile updated Successfull"){
-          const formData=new FormData();
-          formData.append('image',this.images);
-          formData.append('email',res.email)
-          this.ui.update_image(formData).subscribe((response)=>{
-            console.log("response=",Object.entries(response))
-            if(Object.entries(response)[0][1]==="Profile image updated Successfull"){
-              this.toast.success({detail:"Success Message",summary:"Profile update Successfully",duration:5000});
-              window.location.reload();
+      try {
+        new URL(data.website);
+        if(this.file.type==="image/jpeg" || this.file.type==="image/png"){
+          this.up.update_profile(data).subscribe((res:any)=>{
+            console.log("response from update profile=",res);
+            if(res.msg==="Profile updated Successfull"){
+              const formData=new FormData();
+              formData.append('image',this.images);
+              formData.append('email',res.email)
+              this.ui.update_image(formData).subscribe((response)=>{
+                console.log("response=",Object.entries(response))
+                if(Object.entries(response)[0][1]==="Profile image updated Successfull"){
+                  this.toast.success({detail:"Success Message",summary:"Profile update Successfully",duration:5000});
+                  window.location.reload();
+                }
+                else{
+                  this.toast.error({detail:"Failure Message",summary:"Updating profile image failed",duration:5000});
+                }
+              })
             }
             else{
-              this.toast.error({detail:"Success Message",summary:"Updating profile image failed",duration:5000});
+              this.toast.error({detail:"Failure Message",summary:"Updating profile failed",duration:5000});
             }
           })
         }
         else{
-          this.toast.error({detail:"Success Message",summary:"Updating profile failed",duration:5000});
+          this.toast.error({detail:"Failure Message",summary:"Invalid image format only png or jpeg format is accepted",duration:5000});
         }
-      })
+      } catch (err) {
+        this.toast.error({detail:"Failure Message",summary:"Invalid website url",duration:5000});
+      }
     }
   }
 }

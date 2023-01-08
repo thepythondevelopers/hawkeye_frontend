@@ -2,3 +2,6 @@
 html{
     background-color: #F6FCFF;
 }
+.hand{
+    cursor: pointer;
+}

@@ -45,8 +45,9 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
   }
   switch_account(){
-    this.toDisplay4 = !this.toDisplay4;
     this.gia.accounts(localStorage.getItem("email")).subscribe((res)=>{
+      try{
+      this.toDisplay4 = !this.toDisplay4;
       console.log("response::",Object.entries(res)[0]);
       this.switch_account_1=Object.entries(res)[0][1].account_1;
       this.switch_account_2=Object.entries(res)[0][1].account_2;
@@ -63,6 +64,11 @@ export class SidebarComponent implements OnInit {
       this.ig_id_3=Object.entries(res)[0][1].ig_id_3;
       this.ig_id_4=Object.entries(res)[0][1].ig_id_4;
       this.ig_id_5=Object.entries(res)[0][1].ig_id_5;
+      }
+      catch{
+        this.toDisplay4=false;
+        this.toast.error({detail:"Failure Message",summary:"Please buy a plan first",duration:5000});
+      }
     })
     /*let email=localStorage.getItem("email");
     localStorage.clear();
@@ -88,36 +94,124 @@ export class SidebarComponent implements OnInit {
         this.toast.info({detail:"Failure Message",summary:"Please buy a suscription first",duration:5000});
       }
       else{
-        this.router.navigate(['/dashboard']);
+        if(!localStorage.getItem("access_token")){
+        this.router.navigate(['/login-with-facebook']);
+        }
+        else{
+          this.router.navigate(['/dashboard']);
+        }
       }
     });
   }
   fdp(){
     this.toDisplay_fdo=!this.toDisplay_fdo;
   }
+  prp(){
+    this.router.navigate(['/pricing'])
+  }
   idp(){
-    this.router.navigate(['/impression/calender'])
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['/impression/calender'])
+      }
+    })
   }
   rdp(){
-    this.router.navigate(['/reach/calender'])
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['/reach/calender'])
+      }
+    })
   }
   npdp(){
-    this.router.navigate(['/newpost/calender'])
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['/newpost/calender'])
+      }
+    })
   }
   wdp(){
-    this.router.navigate(['/wbcs/calender'])
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['/wbcs/calender'])
+      }
+    })
   }
   pcdp(){
-    this.router.navigate(['/profile-visits/calender'])
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['/profile-visits/calender'])
+      }
+    })
   }
   bcity(){
-    this.router.navigate(['followers-details/city'])
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['followers-details/city'])
+      }
+    })
   }
   bcountry(){
-    this.router.navigate(['followers-details/country'])
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['followers-details/country'])
+      }
+    })
   }
   bga(){
-    this.router.navigate(['followers-details/gender_age'])
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['followers-details/gender_age'])
+      }
+    })
   }
   sa_1(){
     if(this.access_token_1 && this.ig_id_1){
@@ -229,7 +323,7 @@ export class SidebarComponent implements OnInit {
           this.se.send_email(localStorage.getItem("email"),"cancel").subscribe((res)=>{
             console.log("You have Successfully cancelled your suscription");
           })
-
+        window.location.reload();
         }
       })
   }

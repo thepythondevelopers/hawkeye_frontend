@@ -4,7 +4,9 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ProfilevisitsService } from '../profilevisits.service';
 import { WbcsService } from '../wbcs.service';
 import { Router } from '@angular/router';
-
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-profile-visits-visuals',
@@ -26,7 +28,7 @@ export class ProfileVisitsVisualsComponent implements OnInit {
   wcs_p: any;
   wcs_percentage_change: any;
 
-  constructor(private prfvisits : ProfilevisitsService,private wbcs : WbcsService,private router: Router) {
+  constructor(private toast:NgToastService,private http:HttpClient, private prfvisits : ProfilevisitsService,private wbcs : WbcsService,private router: Router) {
     this.access_token=localStorage.getItem("access_token");
     this.ig_id=localStorage.getItem("ig_id");
     this.pv_week();
@@ -82,7 +84,17 @@ export class ProfileVisitsVisualsComponent implements OnInit {
     this.toDisplay_profile_period = !this.toDisplay_profile_period;
   }
   pv_calender(){
-    this.router.navigate(['profile-visits/calender']);
+    this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
+      let my_plan = Object.entries(response)[0][1];
+      console.log("My plan=",my_plan);
+      if(my_plan==="Null" || my_plan==="Freelancer"){
+        this.router.navigate(['/dashboard']);
+        this.toast.error({detail:"Failure Message",summary:"You need to upgrade your plan to access this page.",duration:5000});
+      }
+      else{
+        this.router.navigate(['profile-visits/calender']);
+      }
+    })
   }
   pv_week(){
     this.toDisplay_profile_period=false;

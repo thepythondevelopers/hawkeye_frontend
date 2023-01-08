@@ -26,7 +26,7 @@ export class SignupService {
     this.toast.error({detail:"Failure Message",summary:"Confirm Password cannot be empty",duration:5000});
     else if(req.password!==req.confirm_password)
     {
-      this.toast.error({detail:"Failure Message",summary:"Password and confirm password does'nt match",duration:5000});
+      this.toast.error({detail:"Failure Message",summary:"Password and confirm password doesn't match",duration:5000});
     }
     else if(req.password.length<8)
     this.toast.error({detail:"Failure Message",summary:"Password must be atleast 8 characters long",duration:5000});
@@ -44,6 +44,9 @@ export class SignupService {
       }
       else if(res.msg==="Email already exists"){
         this.toast.error({detail:"Failure Message",summary:res.msg,duration:5000});
+      }
+      else if(res.error){
+        this.toast.error({detail:"Failure Message",summary:res.error,duration:5000});
       }
     })
     }

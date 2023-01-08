@@ -42,7 +42,7 @@ export class NewPasswordComponent implements OnInit {
           });
       }
     else{
-      this.toast.error({detail:"Failure Message",summary:"Password and confirm password does'nt match",duration:5000}); 
+      this.toast.error({detail:"Failure Message",summary:"Password and confirm password doesn't match",duration:5000}); 
     }
     }
     }
