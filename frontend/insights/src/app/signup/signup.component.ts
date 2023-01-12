@@ -9,6 +9,7 @@ import { NgToastService } from 'ng-angular-popup';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  toDisplaymodal: any=false;
   cb: boolean=false;
   eye: boolean=false;
   eye2: boolean=false;
@@ -17,6 +18,9 @@ export class SignupComponent implements OnInit {
       this.router.navigate(['/dashboard']);
     }
   }
+  close_modal(){
+    this.toDisplaymodal=false;
+  }
   signupdata(data:any){
     if(this.cb===true)
     this.signup.signup(data);
@@ -24,6 +28,7 @@ export class SignupComponent implements OnInit {
     this.toast.error({detail:"Failure Message",summary:"Please accept the terms and condition to continue",duration:5000});
   }
   checkbox(){
+    this.toDisplaymodal=true;
     this.cb=!this.cb;
   }
   eyeone(){

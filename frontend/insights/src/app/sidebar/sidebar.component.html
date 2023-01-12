@@ -19,7 +19,7 @@
         <li *ngIf="toDisplay" class="hand text" (click)="in_development()">Upgarde</li>
         <li *ngIf="toDisplay" (click)="cancel_sub()" class="hand text">Cancel</li>
         <li class="hand text" (click)="captureScreen()"><img class="inbox_icon" src="../assets/images/inbox-in.png" alt="inbox_img"><div class="mess-div">Capture Screen</div></li>
-        <li class="hand text"><img class="lock_icon" src="../assets/images/lock.png" alt="lock_img"><div class="auth-div">Privacy Policy</div></li>
+        <li class="hand text" (click)="privacy_policy()"><img class="lock_icon" src="../assets/images/lock.png" alt="lock_img"><div class="auth-div">Privacy Policy</div></li>
         <hr />
         <li class="hand text"><img class="docs_icon" src="../assets/images/clipboard-list.png" alt="docs_img"><div class="docs-div">Terms and Conditions</div></li>
         <li class="hand text"><img class="components_icon" src="../assets/images/collection.png" alt="components_img"><div class="comp-div">Contact Us</div></li>

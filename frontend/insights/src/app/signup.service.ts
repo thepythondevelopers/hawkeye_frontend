@@ -36,7 +36,7 @@ export class SignupService {
       console.log('request from signup',req);
     this.http.post(environment.baseURL+'/register',(req)).subscribe((res:any)=>{
       if(res.msg==="registration successfull"){
-        this.toast.success({detail:"Success Message",summary:res.msg,duration:5000});
+        this.toast.success({detail:"Success Message",summary:"Registration Successful",duration:5000});
         this.router.navigate(['/login']);
         this.coc.create_otp_collection(req.email).subscribe((response:any)=>{
           console.log("response from create otp collection",response);

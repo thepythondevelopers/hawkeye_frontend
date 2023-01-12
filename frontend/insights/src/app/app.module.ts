@@ -36,6 +36,8 @@ import { environment } from 'src/environments/environment';
 import { FacebookAppIdModule } from './facebook-app-id/facebook-app-id.module';
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { OtpPageComponent } from './otp-page/otp-page.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { Navbar2Component } from './navbar2/navbar2.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { OtpPageComponent } from './otp-page/otp-page.component';
     CancelComponent,
     ProfileComponent,
     NewPasswordComponent,
-    OtpPageComponent
+    OtpPageComponent,
+    PrivacyPolicyComponent,
+    Navbar2Component
   ],
   imports: [
     BrowserModule,

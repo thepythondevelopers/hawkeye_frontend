@@ -267,6 +267,9 @@ export class SidebarComponent implements OnInit {
     this.toDisplaymodal=false;
     this.toDisplaymodal_sub=false;
   }
+  privacy_policy(){
+    this.router.navigate(['/privacy-policy']);
+  }
   cancel_sub(){
     this.http.post(environment.baseURL+'/get_plans',{"email":localStorage.getItem('email')}).subscribe((response)=>{
       let my_plan = Object.entries(response)[0][1];

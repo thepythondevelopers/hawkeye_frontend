@@ -23,9 +23,11 @@ import { WebsiteClicksInsightsComponent } from './website-clicks-insights/websit
 import { ProfileComponent } from './profile/profile.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { OtpPageComponent } from './otp-page/otp-page.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   {path : 'dashboard', component : DashboardComponent},
+  {path : 'privacy-policy', component : PrivacyPolicyComponent},
   {path : 'followers-details/:id', component : FollowerDetailsInsightsComponent},
   {path : 'profile', component : ProfileComponent},
   {path : 'charts', component : TestComponent},
