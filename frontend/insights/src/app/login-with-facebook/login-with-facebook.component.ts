@@ -8,6 +8,7 @@ import { SocialAuthServiceConfig } from 'angularx-social-login';
 import { CookieService } from 'ngx-cookie-service';
 import {NgToastService} from 'ng-angular-popup';
 import { FillInstaAccountsService } from '../fill-insta-accounts.service';
+import { GetUsernameService } from '../get-username.service';
 
 @Component({
   selector: 'app-login-with-facebook',
@@ -24,7 +25,7 @@ export class LoginWithFacebookComponent implements OnInit {
   errors: any;
   displayerrors: any=false;
 
-  constructor(private fia : FillInstaAccountsService,private toast:NgToastService,private cookieService: CookieService,private pis: ProfileImageService,private http: HttpClient, private router : Router, private authService: SocialAuthService,) {
+  constructor(private get_username:GetUsernameService,private fia : FillInstaAccountsService,private toast:NgToastService,private cookieService: CookieService,private pis: ProfileImageService,private http: HttpClient, private router : Router, private authService: SocialAuthService,) {
     /*if(!localStorage.getItem("jwt")){
       this.router.navigate(['/signup']);
     }
@@ -72,6 +73,12 @@ export class LoginWithFacebookComponent implements OnInit {
               this.ig_id=res.data[i].instagram_business_account.id;
               localStorage.setItem("access_token",this.access_token);
               localStorage.setItem("ig_id",this.ig_id);
+              this.get_username.gsn(this.ig_id,this.access_token).subscribe({
+                next: (response:any) => localStorage.setItem("active",response.username), 
+                error: (error) => {
+                  console.log("error getting name");
+                }
+              })
             }
           }
           this.sno=i+1;

@@ -24,6 +24,7 @@ import {environment} from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { NgToastService } from 'ng-angular-popup';
 import { EngagementInteractionsService } from '../engagement-interactions.service';
+import { GetUsernameService } from '../get-username.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -154,6 +155,7 @@ export class DashboardComponent implements OnInit{
   toDisplay_fdo=false;
   feed_engagement: number=0;
   reel_interaction: number=0;
+  active: any;
 
 
   select_reach_period() {
@@ -305,7 +307,7 @@ export class DashboardComponent implements OnInit{
     ]
   };
 
-  constructor(private eandi: EngagementInteractionsService,private toast:NgToastService,private cookieService: CookieService,private total_following : TotalFollowingService, private media_type : MediaTypeService, private authService: SocialAuthService, private http: HttpClient,private router: Router,private reach_service : ContentreachService,private newpost : NewpostService,private toppost : ToppostService, private newfollowers : NewfollowersService, private wbcs : WbcsService, private dashboardservice: DashboardService, private impservice: ImpressionService, private fd_service : FollowersDetailsService, private lscs_service : LscsService,  private tfs : TotalfollowersService, private prfvisits : ProfilevisitsService ) { 
+  constructor(private get_username:GetUsernameService,private eandi: EngagementInteractionsService,private toast:NgToastService,private cookieService: CookieService,private total_following : TotalFollowingService, private media_type : MediaTypeService, private authService: SocialAuthService, private http: HttpClient,private router: Router,private reach_service : ContentreachService,private newpost : NewpostService,private toppost : ToppostService, private newfollowers : NewfollowersService, private wbcs : WbcsService, private dashboardservice: DashboardService, private impservice: ImpressionService, private fd_service : FollowersDetailsService, private lscs_service : LscsService,  private tfs : TotalfollowersService, private prfvisits : ProfilevisitsService ) { 
     Chart.register(...registerables);
     this.month={"0":"0"};
     this.run();
@@ -338,6 +340,12 @@ export class DashboardComponent implements OnInit{
       }
     }
     this.ig_id=localStorage.getItem("ig_id");
+    this.get_username.gsn(this.ig_id,this.access_token).subscribe({
+      next: (response:any) => this.active=response.username, 
+      error: (error) => {
+        console.log("error getting name");
+      }
+    })
     this.reach_week();
     this.imp_week();
     this.tf();

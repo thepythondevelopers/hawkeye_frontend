@@ -481,6 +481,11 @@ a{
     margin-left: -47px;
     margin-right: 21px;
   }
+.active{
+    color: red;
+    margin-top: 35px;
+    margin-left: 20px;
+}
 .navbar{
 box-sizing: border-box;
 gap: 30px;

@@ -91,6 +91,12 @@ background: #FFFFFF;
     padding: 10px 0px 10px 0px;
     color: #ffff;
   }
+  .active{
+    color:rgb(104, 192, 104)
+  }
+  .error{
+    color:red;
+  }
   /* Modal Content/Box */
   .modal-content {
     background-color: #fefefe;

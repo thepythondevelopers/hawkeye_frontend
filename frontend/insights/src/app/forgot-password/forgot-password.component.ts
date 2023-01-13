@@ -17,10 +17,6 @@ export class ForgotPasswordComponent implements OnInit {
     }
    }
 
-  gbh(){
-    this.router.navigate(['/signup'])
-  }
-
   forgotemail(data:any){
     if(data.email)
     {

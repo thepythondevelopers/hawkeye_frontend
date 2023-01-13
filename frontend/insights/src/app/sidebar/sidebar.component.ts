@@ -10,6 +10,7 @@ import html2canvas from 'html2canvas';
 import { SendEmailService } from '../send-email.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { GetUsernameService } from '../get-username.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -39,14 +40,31 @@ export class SidebarComponent implements OnInit {
   ig_id_5: any;
   toDisplaymodal: any=false;
   toDisplaymodal_sub: any=false;
+  toDisplay_sa_5: boolean =false;
+  toDisplay_sa_1: boolean=false;
+  toDisplay_sa_2: boolean=false;
+  toDisplay_sa_3: boolean=false;
+  toDisplay_sa_4: boolean=false;
+  un_1: any;
+  un_2: any;
+  un_3: any;
+  un_4: any;
+  un_5: any;
+  un_1_e: boolean=false;
+  un_2_e: boolean=false;
+  un_3_e: boolean=false;
+  un_4_e: boolean=false;
+  un_5_e: boolean=false;
+  active: any;
 
-  constructor(private http:HttpClient,private se:SendEmailService,private cust_id:GetCustIdService,private uc:UpdateCardService,private modaldata:ModalserviceService,private gia: GetInstaAccountsService,private toast:NgToastService,private cup: CheckUserPlanService,private router: Router) {}
+  constructor(private get_username:GetUsernameService,private http:HttpClient,private se:SendEmailService,private cust_id:GetCustIdService,private uc:UpdateCardService,private modaldata:ModalserviceService,private gia: GetInstaAccountsService,private toast:NgToastService,private cup: CheckUserPlanService,private router: Router) {}
 
   ngOnInit(): void {
   }
   switch_account(){
     this.gia.accounts(localStorage.getItem("email")).subscribe((res)=>{
       try{
+        console.log("res from get insta acc::",res);
       this.toDisplay4 = !this.toDisplay4;
       console.log("response::",Object.entries(res)[0]);
       this.switch_account_1=Object.entries(res)[0][1].account_1;
@@ -64,6 +82,72 @@ export class SidebarComponent implements OnInit {
       this.ig_id_3=Object.entries(res)[0][1].ig_id_3;
       this.ig_id_4=Object.entries(res)[0][1].ig_id_4;
       this.ig_id_5=Object.entries(res)[0][1].ig_id_5;
+      if(this.access_token_1 && this.ig_id_1){
+        this.toDisplay_sa_1=true;
+        this.get_username.gsn(this.ig_id_1,this.access_token_1).subscribe({
+          next: (response:any) => this.un_1=response.username, 
+          error: (error) => {
+            this.un_1_e=true;
+            this.un_1="! Reconnect"
+          }
+        })
+        
+      }
+      else{
+        this.toDisplay_sa_1=false;
+      }
+      if(this.access_token_2 && this.ig_id_2){
+        this.toDisplay_sa_2=true;
+        this.get_username.gsn(this.ig_id_2,this.access_token_2).subscribe({
+          next: (response:any) => this.un_2=response.username, 
+          error: (error) => {
+            this.un_2_e=true;
+            this.un_2="! Reconnect"
+          }
+        })
+      }
+      else{
+        this.toDisplay_sa_2=false;
+      }
+      if(this.access_token_3 && this.ig_id_3){
+        this.toDisplay_sa_3=true;
+        this.get_username.gsn(this.ig_id_3,this.access_token_3).subscribe({
+          next: (response:any) => this.un_3=response.username, 
+          error: (error) => {
+            this.un_3_e=true;
+            this.un_3="! Reconnect"
+          }
+        })
+      }
+      else{
+        this.toDisplay_sa_3=false;
+      }
+      if(this.access_token_4 && this.ig_id_4){
+        this.toDisplay_sa_4=true;
+        this.get_username.gsn(this.ig_id_4,this.access_token_4).subscribe({
+          next: (response:any) => this.un_4=response.username, 
+          error: (error) => {
+            this.un_4_e=true;
+            this.un_4="! Reconnect"
+          }
+        })
+      }
+      else{
+        this.toDisplay_sa_4=false;
+      }
+      if(this.access_token_5 && this.ig_id_5){
+        this.toDisplay_sa_5=true;
+        this.get_username.gsn(this.ig_id_5,this.access_token_5).subscribe({
+          next: (response:any) => this.un_5=response.username, 
+          error: (error) => {
+            this.un_4_e=true;
+            this.un_4="! Reconnect"
+          }
+        })
+      }
+      else{
+        this.toDisplay_sa_5=false;
+      }
       }
       catch{
         this.toDisplay4=false;
@@ -215,6 +299,7 @@ export class SidebarComponent implements OnInit {
   }
   sa_1(){
     if(this.access_token_1 && this.ig_id_1){
+      localStorage.setItem("active",this.un_1)
       localStorage.setItem("access_token",this.access_token_1);
       localStorage.setItem("ig_id",this.ig_id_1);
       window.location.reload();
@@ -225,6 +310,7 @@ export class SidebarComponent implements OnInit {
   }
   sa_2(){
     if(this.access_token_2 && this.ig_id_2){
+      localStorage.setItem("active",this.un_2)
       localStorage.setItem("access_token",this.access_token_2);
       localStorage.setItem("ig_id",this.ig_id_2);
       window.location.reload();
@@ -235,6 +321,7 @@ export class SidebarComponent implements OnInit {
   }
   sa_3(){
     if(this.access_token_3 && this.ig_id_3){
+      localStorage.setItem("active",this.un_3)
       localStorage.setItem("access_token",this.access_token_3);
       localStorage.setItem("ig_id",this.ig_id_3);
       window.location.reload();
@@ -245,6 +332,7 @@ export class SidebarComponent implements OnInit {
   }
   sa_4(){
     if(this.access_token_4 && this.ig_id_4){
+      localStorage.setItem("active",this.un_4)
       localStorage.setItem("access_token",this.access_token_4);
       localStorage.setItem("ig_id",this.ig_id_4);
       window.location.reload();
@@ -255,6 +343,7 @@ export class SidebarComponent implements OnInit {
   }
   sa_5(){
     if(this.access_token_5 && this.ig_id_5){
+      localStorage.setItem("active",this.un_5)
       localStorage.setItem("access_token",this.access_token_5);
       localStorage.setItem("ig_id",this.ig_id_5);
       window.location.reload();
@@ -282,26 +371,6 @@ export class SidebarComponent implements OnInit {
         this.toDisplaymodal_sub=true;
       }
     })
-  }
-  ea_1(){
-    this.toDisplaymodal=true;
-    localStorage.setItem("edit_for","account_1");
-  }
-  ea_2(){
-    this.toDisplaymodal=true;
-    localStorage.setItem("edit_for","account_2");
-  }
-  ea_3(){
-    this.toDisplaymodal=true;
-    localStorage.setItem("edit_for","account_3");
-  }
-  ea_4(){
-    this.toDisplaymodal=true;
-    localStorage.setItem("edit_for","account_4");
-  }
-  ea_5(){
-    this.toDisplaymodal=true;
-    localStorage.setItem("edit_for","account_5");
   }
   modal_data(data:any){
     console.log("modal-data::",data);

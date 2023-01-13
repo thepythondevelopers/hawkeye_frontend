@@ -36,8 +36,4 @@ export class OtpPageComponent implements OnInit {
       this.toast.error({detail:"Failure Message",summary:"OTP cannot be left empty",duration:5000}); 
     } 
   }
-  btfpp(){
-    this.router.navigate(['/forgot_password'])
-  }
-
 }

@@ -27,11 +27,11 @@
         <li *ngIf="toDisplay3" class="hand text" (click)="profile()">Update Profile</li>
         <!--<li *ngIf="toDisplay3" class="text" (click)="update_card()">Change card</li>-->
         <li (click)="switch_account()" class="hand text"><img class="support_icon" src="../assets/images/support.png" alt="support_img"><div class="help-div">Switch Ig Account</div><div *ngIf="!toDisplay4" class="angle-down"><i class="fa fa-angle-down" aria-hidden="true"></i></div><div *ngIf="toDisplay4" class="angle-up"><i class="fa fa-angle-up" aria-hidden="true"></i></div></li>
-        <li *ngIf="toDisplay4" class="text"><span class="hand" (click)="sa_1()">{{switch_account_1}}</span><i (click)="ea_1()" class='hand fa fa-edit'></i></li>
-        <li *ngIf="toDisplay4" class="text"><span class="hand" (click)="sa_2()">{{switch_account_2}}</span><i (click)="ea_2()" class='hand fa fa-edit'></i></li>
-        <li *ngIf="toDisplay4" class="text"><span class="hand" (click)="sa_3()">{{switch_account_3}}</span><i (click)="ea_3()" class='hand fa fa-edit'></i></li>
-        <li *ngIf="toDisplay4" class="text"><span class="hand" (click)="sa_4()">{{switch_account_4}}</span><i (click)="ea_4()" class='hand fa fa-edit'></i></li>
-        <li *ngIf="toDisplay4" class="text"><span class="hand" (click)="sa_5()">{{switch_account_5}}</span><i (click)="ea_5()" class='hand fa fa-edit'></i></li>
+        <li *ngIf="toDisplay4 && toDisplay_sa_1" class="text"><span class="hand" *ngIf="!un_1_e" (click)="sa_1()">{{un_1}}</span><span *ngIf="un_1_e" (click)="sa_1()" class="error hand">{{un_3}}</span>
+        <li *ngIf="toDisplay4 && toDisplay_sa_2" class="text"><span class="hand" *ngIf="!un_2_e" (click)="sa_2()">{{un_2}}</span><span *ngIf="un_2_e" (click)="sa_2()" class="error hand">{{un_3}}</span>
+        <li *ngIf="toDisplay4 && toDisplay_sa_3" class="text"><span *ngIf="!un_3_e" class="hand" (click)="sa_3()">{{un_3}}</span><span *ngIf="un_3_e" (click)="sa_3()" class="error hand">{{un_3}}</span>
+        <li *ngIf="toDisplay4 && toDisplay_sa_4" class="text"><span *ngIf="!un_4_e" class="hand" (click)="sa_4()">{{un_4}}</span><span *ngIf="un_4_e" (click)="sa_4()" class="error hand">{{un_3}}</span>
+        <li *ngIf="toDisplay4 && toDisplay_sa_5" class="text"><span *ngIf="!un_5_e" class="hand" (click)="sa_5()">{{un_5}}</span><span *ngIf="un_5_e" (click)="sa_5()" class="error hand">{{un_3}}</span>
     </ul>
     </div>
 <!-- The Modal -->
@@ -40,7 +40,7 @@
   <!-- Modal content -->
   <div class="modal-content">
     <div class="form_box">
-        <h2 class="heading1">Change Name</h2>
+        <h2 class="heading1">Reconnect Instagram Account</h2>
         <form class="signin_form" #modal="ngForm" (ngSubmit)="modal_data(modal.value)">
         <input class="input" name="name" required type="text" placeholder="Changed Name" ngModel />
         <br />

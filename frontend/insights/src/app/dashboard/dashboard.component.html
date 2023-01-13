@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <app-sidebar></app-sidebar>
 <div class="main">
-    <h2>Dashboard</h2>
+    <div style="display: flex;"><h2>Dashboard</h2><span class="active">{{active}}</span></div>
     <div class="grid-container">
     <div class="d1 reach">
         <h3 class="hand reach_block" (click)="select_reach_period()"><span *ngIf="toDisplay_reach_period_week" class="w">W</span><span class="m" *ngIf="toDisplay_reach_period_30">M</span>Reach<div *ngIf="!toDisplay_reach_period" class="angle-down2"><i class="fa fa-angle-down" aria-hidden="true"></i></div><div *ngIf="toDisplay_reach_period" class="angle-up2"><i class="fa fa-angle-up" aria-hidden="true"></i></div></h3>
