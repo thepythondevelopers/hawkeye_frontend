@@ -114,11 +114,12 @@ border-radius: 22px;
     margin-top: 60px;
 }
 .signin_box{
-    position: absolute;
+position: absolute;
 width: 1114px;
 height: 556px;
-left: 194.6px;
+left: 294.6px;
 background: #FFFFFF;
 box-shadow: 1px 2px 23px rgb(70 118 251 / 51%);
 border-radius: 22px;
+top:110px;
 }

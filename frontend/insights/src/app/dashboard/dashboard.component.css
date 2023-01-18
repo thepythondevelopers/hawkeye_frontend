@@ -8,17 +8,17 @@ button{
 .angle-down_bp{
     width: 20px;
     font-size: 20px;
-    margin-top: 15px;
-    margin-left: -50px;
-    margin-right: 30px;
+    margin-top: -22px;
+    margin-right: 140px;
     float: right;
+    transform: rotate(90deg);
 }
 .profile_text{
     text-align: center;
     font-size: 15px;
-    color: #111827;
-    padding: 2px 0px 2px 0px;
+    padding: 10px 30px 10px 37px;
     margin: 2px 7px 5px 7px;
+    color:white;
 }
 .fd-angle-up{
     margin: -48px 10px 0px 0px;
@@ -32,34 +32,39 @@ button{
 }
 .profile_text:hover{
     background: #F3F4F6;
-    border-radius: 12px;
+    border-radius: 20px;
+    color: #111827;
 }
 .logout_text{
     text-align: center;
     font-size: 15px;
-    color: #111827;
-    padding: 2px 0px 2px 0px;
-    margin: 0px 7px 5px 7px;
+    padding: 10px 30px 10px 30px;
+    margin: 2px 7px 5px 7px;
+    color:white;
 }
 .logout_text:hover{
     background: #F3F4F6;
-    border-radius: 12px;
+    border-radius: 20px;
+    color: #111827;
 }
 .profile_options{
-    margin-top: 60px;
+    margin-top: -35px;
     position: absolute;
-    width: 140px;
-    height: 60px;
-    background-color: #ffff;
-    margin-left: 1143px;
+    width: 240px;
+    height: 40px;
+    background-color: #613DC1;
+    margin-left: 883px;
+    border-radius: 20px;
+    display: flex;
   }
 .angle-up_bp{
     width: 20px;
     font-size: 20px;
-    margin-top: 15px;
+    margin-top: -22px;
     margin-left: -50px;
-    margin-right: 30px;
+    margin-right: 140px;
     float: right;
+    transform: rotate(90deg);
 }
 .total_web_clicks{
     text-align: right;

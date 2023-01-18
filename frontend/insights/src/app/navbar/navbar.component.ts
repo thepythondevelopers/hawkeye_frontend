@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { CookieService } from 'ngx-cookie-service';
+import { CheckUserPlanService } from '../check-user-plan.service';
 import { ProfileImageService } from '../profile-image.service';
 
 @Component({
@@ -15,7 +17,14 @@ export class NavbarComponent implements OnInit {
   base64String:any;
   sdp: any=false;
   imageurl: any;
-  constructor(private domSanitizer: DomSanitizer,private cookieService: CookieService,private router: Router,private pis: ProfileImageService) { 
+  toDisplay_ctf: boolean=false;
+  constructor(private toast:NgToastService,private cup: CheckUserPlanService,private domSanitizer: DomSanitizer,private cookieService: CookieService,private router: Router,private pis: ProfileImageService) { 
+    if(localStorage.getItem("access_token")){
+      this.toDisplay_ctf=true;
+    }
+    else{
+      this.toDisplay_ctf=false;
+    }
     this.pis.get_profile_image().subscribe((res)=>{
       console.log("profile image=",Object.entries(res)[0][1].data.data);
       if(Object.entries(res)[0][0]==="updated_profile_image"){
@@ -41,9 +50,34 @@ export class NavbarComponent implements OnInit {
   logout(){
     localStorage.clear();
     //this.cookieService.deleteAll();
-    this.router.navigate(['/signup']);
+    this.router.navigate(['/home']);
   }
   profile(){
     this.router.navigate(['/profile']);
+  }
+  redirect(){
+      if(localStorage.getItem("access_token")){
+        this.router.navigate(['/dashboard'])
+      }
+      else{
+        this.router.navigate(['/pricing'])
+      }
+  }
+  ndp(){
+    let email=localStorage.getItem('email');
+    this.cup.check_user_plan(email).subscribe((res:any)=>{
+      console.log("plan response=",res.user_current_plan.plan);
+      if(res.user_current_plan.plan==="Null"){
+        this.toast.info({detail:"Failure Message",summary:"Please buy a suscription first",duration:5000});
+      }
+      else{
+        if(!localStorage.getItem("access_token")){
+        this.router.navigate(['/login-with-facebook']);
+        }
+        else{
+          this.router.navigate(['/dashboard']);
+        }
+      }
+    });
   }
 }

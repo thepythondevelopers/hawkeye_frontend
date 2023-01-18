@@ -11,6 +11,7 @@ import { SendEmailService } from '../send-email.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { GetUsernameService } from '../get-username.service';
+import jspdf from 'jspdf';
 
 @Component({
   selector: 'app-sidebar',
@@ -56,109 +57,115 @@ export class SidebarComponent implements OnInit {
   un_4_e: boolean=false;
   un_5_e: boolean=false;
   active: any;
+  toDisplay_capture: boolean=false;
 
   constructor(private get_username:GetUsernameService,private http:HttpClient,private se:SendEmailService,private cust_id:GetCustIdService,private uc:UpdateCardService,private modaldata:ModalserviceService,private gia: GetInstaAccountsService,private toast:NgToastService,private cup: CheckUserPlanService,private router: Router) {}
 
   ngOnInit(): void {
   }
   switch_account(){
-    this.gia.accounts(localStorage.getItem("email")).subscribe((res)=>{
-      try{
-        console.log("res from get insta acc::",res);
-      this.toDisplay4 = !this.toDisplay4;
-      console.log("response::",Object.entries(res)[0]);
-      this.switch_account_1=Object.entries(res)[0][1].account_1;
-      this.switch_account_2=Object.entries(res)[0][1].account_2;
-      this.switch_account_3=Object.entries(res)[0][1].account_3;
-      this.switch_account_4=Object.entries(res)[0][1].account_4;
-      this.switch_account_5=Object.entries(res)[0][1].account_5;
-      this.access_token_1=Object.entries(res)[0][1].access_token_1;
-      this.access_token_2=Object.entries(res)[0][1].access_token_2;
-      this.access_token_3=Object.entries(res)[0][1].access_token_3;
-      this.access_token_4=Object.entries(res)[0][1].access_token_4;
-      this.access_token_5=Object.entries(res)[0][1].access_token_5;
-      this.ig_id_1=Object.entries(res)[0][1].ig_id_1;
-      this.ig_id_2=Object.entries(res)[0][1].ig_id_2;
-      this.ig_id_3=Object.entries(res)[0][1].ig_id_3;
-      this.ig_id_4=Object.entries(res)[0][1].ig_id_4;
-      this.ig_id_5=Object.entries(res)[0][1].ig_id_5;
-      if(this.access_token_1 && this.ig_id_1){
-        this.toDisplay_sa_1=true;
-        this.get_username.gsn(this.ig_id_1,this.access_token_1).subscribe({
-          next: (response:any) => this.un_1=response.username, 
-          error: (error) => {
-            this.un_1_e=true;
-            this.un_1="! Reconnect"
-          }
-        })
-        
-      }
-      else{
-        this.toDisplay_sa_1=false;
-      }
-      if(this.access_token_2 && this.ig_id_2){
-        this.toDisplay_sa_2=true;
-        this.get_username.gsn(this.ig_id_2,this.access_token_2).subscribe({
-          next: (response:any) => this.un_2=response.username, 
-          error: (error) => {
-            this.un_2_e=true;
-            this.un_2="! Reconnect"
-          }
-        })
-      }
-      else{
-        this.toDisplay_sa_2=false;
-      }
-      if(this.access_token_3 && this.ig_id_3){
-        this.toDisplay_sa_3=true;
-        this.get_username.gsn(this.ig_id_3,this.access_token_3).subscribe({
-          next: (response:any) => this.un_3=response.username, 
-          error: (error) => {
-            this.un_3_e=true;
-            this.un_3="! Reconnect"
-          }
-        })
-      }
-      else{
-        this.toDisplay_sa_3=false;
-      }
-      if(this.access_token_4 && this.ig_id_4){
-        this.toDisplay_sa_4=true;
-        this.get_username.gsn(this.ig_id_4,this.access_token_4).subscribe({
-          next: (response:any) => this.un_4=response.username, 
-          error: (error) => {
-            this.un_4_e=true;
-            this.un_4="! Reconnect"
-          }
-        })
-      }
-      else{
-        this.toDisplay_sa_4=false;
-      }
-      if(this.access_token_5 && this.ig_id_5){
-        this.toDisplay_sa_5=true;
-        this.get_username.gsn(this.ig_id_5,this.access_token_5).subscribe({
-          next: (response:any) => this.un_5=response.username, 
-          error: (error) => {
-            this.un_4_e=true;
-            this.un_4="! Reconnect"
-          }
-        })
-      }
-      else{
-        this.toDisplay_sa_5=false;
-      }
-      }
-      catch{
-        this.toDisplay4=false;
-        this.toast.error({detail:"Failure Message",summary:"Please buy a plan first",duration:5000});
-      }
-    })
-    /*let email=localStorage.getItem("email");
-    localStorage.clear();
-    localStorage.setItem("email",<any>email);
-    alert("To switch between ig account just change the connected ig account to your fb page and then connect with facebook");
-    window.location.href="https://localhost:4200/login-with-facebook";*/
+    if(localStorage.getItem("access_token")){
+      this.gia.accounts(localStorage.getItem("email")).subscribe((res)=>{
+        try{
+          console.log("res from get insta acc::",res);
+        this.toDisplay4 = !this.toDisplay4;
+        console.log("response::",Object.entries(res)[0]);
+        this.switch_account_1=Object.entries(res)[0][1].account_1;
+        this.switch_account_2=Object.entries(res)[0][1].account_2;
+        this.switch_account_3=Object.entries(res)[0][1].account_3;
+        this.switch_account_4=Object.entries(res)[0][1].account_4;
+        this.switch_account_5=Object.entries(res)[0][1].account_5;
+        this.access_token_1=Object.entries(res)[0][1].access_token_1;
+        this.access_token_2=Object.entries(res)[0][1].access_token_2;
+        this.access_token_3=Object.entries(res)[0][1].access_token_3;
+        this.access_token_4=Object.entries(res)[0][1].access_token_4;
+        this.access_token_5=Object.entries(res)[0][1].access_token_5;
+        this.ig_id_1=Object.entries(res)[0][1].ig_id_1;
+        this.ig_id_2=Object.entries(res)[0][1].ig_id_2;
+        this.ig_id_3=Object.entries(res)[0][1].ig_id_3;
+        this.ig_id_4=Object.entries(res)[0][1].ig_id_4;
+        this.ig_id_5=Object.entries(res)[0][1].ig_id_5;
+        if(this.access_token_1 && this.ig_id_1){
+          this.toDisplay_sa_1=true;
+          this.get_username.gsn(this.ig_id_1,this.access_token_1).subscribe({
+            next: (response:any) => this.un_1=response.username, 
+            error: (error) => {
+              this.un_1_e=true;
+              this.un_1="! Reconnect"
+            }
+          })
+          
+        }
+        else{
+          this.toDisplay_sa_1=false;
+        }
+        if(this.access_token_2 && this.ig_id_2){
+          this.toDisplay_sa_2=true;
+          this.get_username.gsn(this.ig_id_2,this.access_token_2).subscribe({
+            next: (response:any) => this.un_2=response.username, 
+            error: (error) => {
+              this.un_2_e=true;
+              this.un_2="! Reconnect"
+            }
+          })
+        }
+        else{
+          this.toDisplay_sa_2=false;
+        }
+        if(this.access_token_3 && this.ig_id_3){
+          this.toDisplay_sa_3=true;
+          this.get_username.gsn(this.ig_id_3,this.access_token_3).subscribe({
+            next: (response:any) => this.un_3=response.username, 
+            error: (error) => {
+              this.un_3_e=true;
+              this.un_3="! Reconnect"
+            }
+          })
+        }
+        else{
+          this.toDisplay_sa_3=false;
+        }
+        if(this.access_token_4 && this.ig_id_4){
+          this.toDisplay_sa_4=true;
+          this.get_username.gsn(this.ig_id_4,this.access_token_4).subscribe({
+            next: (response:any) => this.un_4=response.username, 
+            error: (error) => {
+              this.un_4_e=true;
+              this.un_4="! Reconnect"
+            }
+          })
+        }
+        else{
+          this.toDisplay_sa_4=false;
+        }
+        if(this.access_token_5 && this.ig_id_5){
+          this.toDisplay_sa_5=true;
+          this.get_username.gsn(this.ig_id_5,this.access_token_5).subscribe({
+            next: (response:any) => this.un_5=response.username, 
+            error: (error) => {
+              this.un_4_e=true;
+              this.un_4="! Reconnect"
+            }
+          })
+        }
+        else{
+          this.toDisplay_sa_5=false;
+        }
+        }
+        catch{
+          this.toDisplay4=false;
+          this.toast.error({detail:"Failure Message",summary:"Please buy a plan first",duration:5000});
+        }
+      })
+      /*let email=localStorage.getItem("email");
+      localStorage.clear();
+      localStorage.setItem("email",<any>email);
+      alert("To switch between ig account just change the connected ig account to your fb page and then connect with facebook");
+      window.location.href="https://localhost:4200/login-with-facebook";*/
+    }
+    else{
+      this.toast.error({detail:"Failure Message",summary:"You need to Connect to faebook first",duration:5000});
+    }
   }
   toggleData1() {
     this.toDisplay1 = !this.toDisplay1;
@@ -406,10 +413,27 @@ export class SidebarComponent implements OnInit {
     this.router.navigate(['/profile']);
   }
   captureScreen(){
+    this.toDisplay_capture=!this.toDisplay_capture;
+  }
+  captureScreen_as_image(){
     html2canvas(document.body).then(function(canvas){
       var generatedImage=canvas.toDataURL("image/png").replace("image/png","image/octet-stream");
       window.location.href=generatedImage;
     });
+  }
+  captureScreen_as_pdf(){
+    html2canvas(document.body).then(canvas=>{
+      var imgWidth = 208;
+      var pageHeight =295;
+      var imgHeight = canvas.height * imgWidth/canvas.width;
+      var heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jspdf('p','mm','a4');
+      var position =0;
+      pdf.addImage(contentDataURL,'PNG',0,position,imgWidth, imgHeight)
+      pdf.save('File.pdf');
+    })
   }
   update_card(){
     this.cust_id.get_cust_id(localStorage.getItem("email")).subscribe((response)=>{

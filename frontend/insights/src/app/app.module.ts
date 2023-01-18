@@ -38,6 +38,9 @@ import { NewPasswordComponent } from './new-password/new-password.component';
 import { OtpPageComponent } from './otp-page/otp-page.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { Navbar2Component } from './navbar2/navbar2.component';
+import { HomeComponent } from './home/home.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
+import { ContactusComponent } from './contactus/contactus.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,10 @@ import { Navbar2Component } from './navbar2/navbar2.component';
     NewPasswordComponent,
     OtpPageComponent,
     PrivacyPolicyComponent,
-    Navbar2Component
+    Navbar2Component,
+    HomeComponent,
+    AboutusComponent,
+    ContactusComponent
   ],
   imports: [
     BrowserModule,

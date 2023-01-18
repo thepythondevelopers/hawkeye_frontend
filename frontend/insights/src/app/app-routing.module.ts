@@ -24,8 +24,14 @@ import { ProfileComponent } from './profile/profile.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { OtpPageComponent } from './otp-page/otp-page.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { HomeComponent } from './home/home.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
+import { ContactusComponent } from './contactus/contactus.component';
 
 const routes: Routes = [
+  {path: 'home', component : HomeComponent},
+  {path : 'about-us', component : AboutusComponent},
+  {path : 'contact-us', component : ContactusComponent},
   {path : 'dashboard', component : DashboardComponent},
   {path : 'privacy-policy', component : PrivacyPolicyComponent},
   {path : 'followers-details/:id', component : FollowerDetailsInsightsComponent},

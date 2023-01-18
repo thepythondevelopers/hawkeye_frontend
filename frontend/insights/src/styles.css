@@ -5,3 +5,7 @@ html{
 .hand{
     cursor: pointer;
 }
+input::-ms-reveal,
+      input::-ms-clear {
+        display: none;
+    }

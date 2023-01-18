@@ -21,7 +21,6 @@ export class LoginWithFacebookComponent implements OnInit {
   authtoken:any;
   access_token: any;
   ig_id: any;
-  sno: any;
   errors: any;
   displayerrors: any=false;
 
@@ -79,14 +78,17 @@ export class LoginWithFacebookComponent implements OnInit {
                   console.log("error getting name");
                 }
               })
+              this.fia.fill_insta_accounts(localStorage.getItem("email"),this.access_token,this.ig_id).subscribe((response)=>{
+              console.log("repsonse from fill accounts::",response);
+            }) 
             }
           }
-          this.sno=i+1;
-          this.fia.fill_insta_accounts(localStorage.getItem("email"),this.access_token,this.ig_id,this.sno).subscribe((response)=>{
-            console.log("repsonse from fill accounts::",response);
-          })
         }
         if(localStorage.getItem("ig_id")){
+          let keys = Object.keys(localStorage);
+          let len = keys.length;
+          console.log("length of localstorage::",len);
+          if(len>4)
           this.router.navigate(['/dashboard']);
         }
         else{
