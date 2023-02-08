@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
         providers: [
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('863233641548066')
+            provider: new FacebookLoginProvider('9367266929965637')
           }
         ],
         onError: (err) => {
